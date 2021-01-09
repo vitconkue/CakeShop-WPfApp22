@@ -37,6 +37,10 @@ namespace CakeShop_WPfApp.Commands
             {
                 viewModel.SelectedViewModel = new BillPageViewModel(viewModel);
             }
+            if(parameter.ToString()=="AddCakePage")
+            {
+                viewModel.SelectedViewModel = new AddCakePageViewModel(viewModel);
+            }
 
         }
 

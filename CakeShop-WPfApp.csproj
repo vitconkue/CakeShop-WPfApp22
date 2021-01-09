@@ -113,6 +113,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddNewCake.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BillPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,12 +135,16 @@
     </Compile>
     <Compile Include="Database\DatabaseAccess.cs" />
     <Compile Include="ViewModels\AddBillPageViewModel.cs" />
+    <Compile Include="ViewModels\AddCakePageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BillPageViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\AddBillPage.xaml.cs">
       <DependentUpon>AddBillPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewCake.xaml.cs">
+      <DependentUpon>AddNewCake.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BillPage.xaml.cs">
       <DependentUpon>BillPage.xaml</DependentUpon>
