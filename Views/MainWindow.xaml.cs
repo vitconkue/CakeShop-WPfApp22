@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CakeShop_WPfApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace CakeShop_WPfApp
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }
