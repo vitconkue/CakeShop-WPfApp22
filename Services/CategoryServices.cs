@@ -18,7 +18,7 @@ namespace CakeShop_WPfApp.Services
 
         List<CategoryModel> LoadAll();
     }
-    class CategoryServices : ICategoryServices
+    public class CategoryServices : ICategoryServices
     {
         private string _connectionString = DatabaseAccess.LoadConnectionString();
 

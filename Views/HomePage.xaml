@@ -25,10 +25,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
-                <ComboBox Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">
-                    <ComboBoxItem>Tất cả</ComboBoxItem>
-                    <ComboBoxItem>Bông lan</ComboBoxItem>
-                    <ComboBoxItem>Bông lan</ComboBoxItem>
+                <ComboBox ItemsSource="{Binding CategoryList}" Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">
+                   
                 </ComboBox>
                 <Button Command="{Binding UpdateView}" CommandParameter="AddCakePage"  Margin="10 0">
                     <StackPanel Orientation="Horizontal">
@@ -45,8 +43,8 @@
             </StackPanel>
 
         </Grid>
-        <Grid Grid.Row="1">
-            <ListView Margin="50 0 50 0" ItemsSource="{Binding TripsToShow}" Name="TripListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <Grid HorizontalAlignment="Center" Grid.Row="1">
+            <ListView Margin="50 0 50 0" ItemsSource="{Binding CakeList}" x:Name="CakeListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />
@@ -54,19 +52,35 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <materialDesign:TransitioningContent>
+                        <materialDesign:TransitioningContent >
                             <materialDesign:TransitioningContent.OpeningEffects>
                                 <materialDesign:TransitionEffect  Kind="SlideInFromRight"/>
                             </materialDesign:TransitioningContent.OpeningEffects>
-                            <materialDesign:Card>
-                                <Grid Height="300" Width="250">
+                            <materialDesign:Card Height="250" Width="250">
+                                <Grid HorizontalAlignment="Center">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="10*"></RowDefinition>
+                                        <RowDefinition Height="5*"></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <Image Grid.Row="0"></Image>
-                                    <StackPanel Grid.Row="1">
-
+                                    <StackPanel Margin="0 10 0 0 " HorizontalAlignment="Center" Grid.Row="0">
+                                        <TextBlock Margin="0 0 0 10" HorizontalAlignment="Center" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
+                                        <Image Height="150" Width="180" Source="{Binding ImageLink}"></Image>
+                                       
+                                    </StackPanel>
+                                   
+                                    <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="1">
+                                        <Button Command="{Binding DataContext.GotoDetailPage, ElementName=CakeListView }" CommandParameter="{Binding ID}" Margin="0 0 5 0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Eye"></materialDesign:PackIcon>
+                                                <TextBlock>Xem chi tiết</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Update"></materialDesign:PackIcon>
+                                                <TextBlock>Cập nhật</TextBlock>
+                                            </StackPanel>
+                                        </Button>
                                     </StackPanel>
                                 </Grid>
                             </materialDesign:Card>
@@ -76,6 +90,7 @@
                 </ListView.ItemTemplate>
 
             </ListView>
+         
         </Grid>
         <Grid Grid.Row="2">
             <StackPanel Height="40" HorizontalAlignment="Center" Width="250" Orientation="Horizontal">

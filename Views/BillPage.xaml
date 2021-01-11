@@ -22,12 +22,12 @@
         </Grid.RowDefinitions>
         <Grid  Grid.Row="0">
             <StackPanel Margin="20 0 0 0" VerticalAlignment="Center">
-                <TextBlock Foreground="{DynamicResource PrimaryHueDarkBrush}">THỐNG KÊ HÓA ĐƠN</TextBlock>
+                <TextBlock FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkBrush}">THỐNG KÊ HÓA ĐƠN</TextBlock>
             </StackPanel>
             <StackPanel Margin="0 0 20 0" HorizontalAlignment="Right"  Orientation="Horizontal">
                 <Button  Margin="10 0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 10 0">Tạo hóa đơn</TextBlock>
+                        <TextBlock Margin="0 0 10 0">Tạo hóa đơn mới</TextBlock>
                         <materialDesign:PackIcon Kind="AddShoppingCart"></materialDesign:PackIcon>
                     </StackPanel>
                 </Button>
