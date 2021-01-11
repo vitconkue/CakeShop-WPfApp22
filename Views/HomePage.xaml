@@ -23,28 +23,35 @@
             <RowDefinition Height="12*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Margin="140 0" Grid.Row="0" HorizontalAlignment="Left">
+        <Grid Margin="120 0 0 0" Grid.Row="0" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
-                <ComboBox ItemsSource="{Binding CategoryList}"
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <ComboBox ItemsSource="{Binding CategoryList}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Name"
-                   SelectedItem= "{Binding SelectedCategory}" Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">
-                   
-                </ComboBox>
-                <Button Command="{Binding UpdateView}" CommandParameter="AddCakePage"  Margin="10 0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 10 0">Thêm bánh mới</TextBlock>
-                        <materialDesign:PackIcon Kind="AddCircleOutline"></materialDesign:PackIcon>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding UpdateView}" CommandParameter='AddBill'>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 10 0">Tạo hóa đơn</TextBlock>
-                        <materialDesign:PackIcon Kind="AddShoppingCart"></materialDesign:PackIcon>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
+                  SelectedValue="Tất cả" Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">
 
+                    </ComboBox>
+                    <Button Command="{Binding UpdateView}" CommandParameter="AddCakePage"  Margin="10 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0 0 10 0">Thêm bánh mới</TextBlock>
+                            <materialDesign:PackIcon Kind="AddCircleOutline"></materialDesign:PackIcon>
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding UpdateView}" CommandParameter='AddBill'>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0 0 10 0">Tạo hóa đơn</TextBlock>
+                            <materialDesign:PackIcon Kind="AddShoppingCart"></materialDesign:PackIcon>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right" Margin="350 0 0 0">
+
+                    <materialDesign:PackIcon Margin="0 5 10 0" Kind="Search" Height="30" Width="28"></materialDesign:PackIcon>
+                    <TextBox Height="30"  FontSize="14" Width="200"/>
+
+                </StackPanel>
+            </StackPanel>
         </Grid>
         <Grid HorizontalAlignment="Center" Grid.Row="1">
             <ListView Margin="50 10 50 0" ItemsSource="{Binding CakeList}" x:Name="CakeListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
