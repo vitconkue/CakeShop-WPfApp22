@@ -106,7 +106,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\UpdateMainViewCommand.cs" />
+    <Compile Include="Models\CakeInOrder.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Services\CakeServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
     <Page Include="Views\AddBillPage.xaml">
@@ -134,6 +136,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Database\DatabaseAccess.cs" />
+    <Compile Include="Services\OrderServices.cs" />
     <Compile Include="ViewModels\AddBillPageViewModel.cs" />
     <Compile Include="ViewModels\AddCakePageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

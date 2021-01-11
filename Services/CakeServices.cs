@@ -75,7 +75,8 @@ namespace CakeShop_WPfApp.Services
                 var output = cnn.QueryFirst<CakeModel>(sqlString, new DynamicParameters());
                 int categoryID = cnn.QueryFirst<int>($"SELECT CategoryID FROM CAKE WHERE ID = {IdToLoad}");
                 result = output;
-
+                var categoryService = new CategoryServices();
+                result.Category = categoryService.LoadSingleCategory(categoryID);
             }
 
             return result;
