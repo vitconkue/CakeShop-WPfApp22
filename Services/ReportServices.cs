@@ -12,10 +12,13 @@ namespace CakeShop_WPfApp.Services
     {
         List<int> GetMonthlyRevenue(int year);
         List<int> GetMonthlyProfit(int year);
+
+        List<(string, int)> GetCategoryRevenue();
     }
     class ReportServices : IReportServices
     {
         private OrderServices orderServices = new OrderServices();
+        private CategoryServices categoryServices = new CategoryServices();
         public List<int> GetMonthlyRevenue(int year)
         {
             List<int> result = new List<int>();
@@ -44,6 +47,20 @@ namespace CakeShop_WPfApp.Services
             throw new NotImplementedException();
         }
 
-        
+        public List<(string, int)> GetCategoryRevenue()
+        {
+            List<(string, int)> result = new List<(string, int)>();
+
+            List<CategoryModel> allCategory = categoryServices.LoadAll(); 
+
+            foreach(var category in allCategory)
+            {
+                int sum = categoryServices.GetSumRevenue(category.ID);
+                result.Add((category.Name, sum));
+            }
+
+
+            return result;
+        }
     }
 }
