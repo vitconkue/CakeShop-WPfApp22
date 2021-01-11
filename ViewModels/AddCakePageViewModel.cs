@@ -185,7 +185,7 @@ namespace CakeShop_WPfApp.ViewModels
         {
             mainViewModel = param;
             addImageButtonCommand = new RelayCommand(o => addImageButtonClick());
-            doneButtonCommand = new RelayCommand(o => doneButtonClick());
+            doneButtonCommand = new RelayCommand(o => doneButtonClick(param));
             AllCategory = new ObservableCollection<CategoryModel>();
             List<CategoryModel> tempList = new List<CategoryModel>();
             tempList = categoryServices.LoadAll();
@@ -207,10 +207,9 @@ namespace CakeShop_WPfApp.ViewModels
                 ImageSource = openFileDialog.FileName;
             }
             OnPropertyChanged(nameof(ImageSource));
-            MessageBox.Show("Add Image Successfully!!!");
         }
 
-        private void doneButtonClick()
+        private void doneButtonClick(MainViewModel param)
         {
             CakeModel newCake = new CakeModel();
             newCake.Name = Name;
@@ -250,8 +249,11 @@ namespace CakeShop_WPfApp.ViewModels
             string targetPath = directory;
             string sourceFile = System.IO.Path.Combine(sourcePath, "");
             string destFile = System.IO.Path.Combine(targetPath, fileName);
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
             System.IO.File.Copy(sourceFile, destFile, true);
             MessageBox.Show("Thêm sản phẩm mới thành công!!!");
+            mainViewModel.SelectedViewModel = new HomePageViewModel(param);
         }
     }
 }

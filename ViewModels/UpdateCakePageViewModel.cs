@@ -192,16 +192,16 @@ namespace CakeShop_WPfApp.ViewModels
                 AllCategory.Add(tempList[i]);
             }
             addImageButtonCommand = new RelayCommand(o => updateImageButtonClick());
-            doneButtonCommand = new RelayCommand(o => doneButtonClick(CakeID));
+            doneButtonCommand = new RelayCommand(o => doneButtonClick(CakeID, param));
             CakeModel myCake = new CakeModel();
             myCake = cakeServices.loadSingleCake(CakeID);
             Name = myCake.Name;
             ImportPrice = myCake.ImportPrice;
             SellingPrice = myCake.SellingPrice;
-            Amount = myCake.Amount;
+            Amount = 0;
             Information = myCake.Information;
             Unit = myCake.Unit;
-            OldAmount = Amount;
+            OldAmount = myCake.Amount;
             for(int i=0;i<AllCategory.Count();i++)
             {
                 if(AllCategory[i].Name == myCake.Category.Name)
@@ -209,6 +209,10 @@ namespace CakeShop_WPfApp.ViewModels
                     CategoryID = i;
                 }
             }
+            //Image
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            directory += "Database\\Images\\CakeImages\\";
+            ImageSource = directory + myCake.ID + ".png";
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(ImportPrice));
             OnPropertyChanged(nameof(SellingPrice));
@@ -218,7 +222,7 @@ namespace CakeShop_WPfApp.ViewModels
             OnPropertyChanged(nameof(ImageSource));
         }
 
-        private void doneButtonClick(int CakeID)
+        private void doneButtonClick(int CakeID, MainViewModel param)
         {
             CakeModel newCake = new CakeModel();
             newCake.Name = Name;
@@ -259,13 +263,20 @@ namespace CakeShop_WPfApp.ViewModels
             string targetPath = directory;
             string sourceFile = System.IO.Path.Combine(sourcePath, "");
             string destFile = System.IO.Path.Combine(targetPath, fileName);
-            System.IO.File.Delete(destFile);
-            System.IO.File.Copy(sourceFile, destFile, true);
+            if(sourceFile!=destFile)
+            {
+                System.GC.Collect();
+                System.GC.WaitForPendingFinalizers();
+                System.IO.File.Copy(sourceFile, destFile, true);
+            }
             MessageBox.Show("Cập nhật sản phẩm mới thành công!!!");
+            mainViewModel.SelectedViewModel = new HomePageViewModel(param);
         }
 
         private void updateImageButtonClick()
         {
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
             var openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
@@ -273,7 +284,6 @@ namespace CakeShop_WPfApp.ViewModels
                 ImageSource = openFileDialog.FileName;
             }
             OnPropertyChanged(nameof(ImageSource));
-            MessageBox.Show("Add Image Successfully!!!");
         }
     }
 }
