@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:CakeShop_WPfApp"
               xmlns:views="clr-namespace:CakeShop_WPfApp.Views"
              xmlns:viewmodels="clr-namespace:CakeShop_WPfApp.ViewModels"
-             StartupUri="Views/MainWindow.xaml">
+             StartupUri="Views/SplashScreen.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type viewmodels:HomePageViewModel}">

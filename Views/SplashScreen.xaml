@@ -1,0 +1,53 @@
+﻿<Window x:Class="CakeShop_WPfApp.Views.SplashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CakeShop_WPfApp.Views"
+        mc:Ignorable="d"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="15"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="SplashScreen" Height="700" Width="900">
+    <Grid>
+        <Canvas Background="#4a4853">
+           
+            <materialDesign:PackIcon Foreground="White" Kind="Idea" Canvas.Top="47" Height="53" Width="34" Canvas.Left="38"/>
+            <TextBlock Foreground="Orange" FontSize="45" Canvas.Left="77" Canvas.Top="47">Did you know?</TextBlock>
+            <TextBlock TextWrapping="Wrap" Width="400" Height="400" Name="info" FontSize="25" Foreground="White" Canvas.Left="77" Canvas.Top="121"></TextBlock>
+
+            <Button Foreground="White" Name="SkipButton" Click="SkipButton_Click" Canvas.Left="811" Canvas.Top="20" Width="60" Height="20">
+                <StackPanel Orientation="Horizontal" Width="171">
+                    <materialDesign:PackIcon Kind="SkipForward" Width="18" RenderTransformOrigin="-0.236,0.875"/>
+                    <TextBlock  TextWrapping="Wrap" Margin="5 0 0 0" Height="20" Width="33"><Run Text="Skip"/></TextBlock>
+                </StackPanel>
+            </Button>
+
+            <ProgressBar Foreground="Gray" Background="White" x:Name="progress" Width="500"  Minimum="0" Maximum="5" Value="0" Height="6" Canvas.Left="198" Canvas.Top="594"/>
+            <CheckBox  Foreground="White" Width="171" Height="20" Canvas.Left="364" Canvas.Top="569" Checked="CheckBox_Checked">
+                <CheckBox.Resources>
+
+                    <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="White"/>
+
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Green"/>
+                </CheckBox.Resources> Never show this again
+            </CheckBox>
+        </Canvas>
+    </Grid>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Height" Value="20"></Setter>
+        </Style>
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"></Setter>
+        </Style>
+    </Window.Resources>
+</Window>
