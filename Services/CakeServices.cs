@@ -41,7 +41,7 @@ namespace CakeShop_WPfApp.Services
 
        
 
-        public bool addCake(CakeModel cakeModel) // without cake ID, without categoryid
+        public bool addCake(CakeModel cakeModel) // without cake ID
         {
             string insertSQLstring = $"INSERT INTO CAKE(NAME,IMPORTPRICE,SELLINGPRICE,AMOUNT,CATEGORYID,UNIT,INFORMATION) " +
                  $"VALUES (@Name,@ImportPrice,@SellingPrice,@Amount,{cakeModel.Category.ID},@Unit,@Information)";

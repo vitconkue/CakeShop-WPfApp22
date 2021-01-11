@@ -27,6 +27,21 @@ namespace CakeShop_WPfApp.Models
             return result;
 
         }
+        private int CheckExistedCake(int cakeID)
+        {
+            int listleng = listCakes.Count;
+            int result = -1; 
+            for(int i =0; i < listleng; ++i)
+            {
+                if(listCakes[i].cake.ID == cakeID)
+                {
+                    return i;
+                }
+            }
+
+           
+            return result;
+        }
 
         public CakeInOrder AddCake(CakeModel cake, int numberOfCake)
         {
@@ -37,7 +52,17 @@ namespace CakeShop_WPfApp.Models
                 Amount = numberOfCake,
                 cake = _cakeServices.loadSingleCake(cake.ID)
             };
-            listCakes.Add(cakeInOrder);
+
+            int check = CheckExistedCake(cakeInOrder.CakeID);
+            if (check == -1)
+            {
+                listCakes.Add(cakeInOrder);
+            }
+            else
+            {
+                listCakes[check].Amount++;
+            }
+           
 
             return cakeInOrder;
 
