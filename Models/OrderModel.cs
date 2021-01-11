@@ -73,5 +73,62 @@ namespace CakeShop_WPfApp.Models
         {
             listCakes = new List<CakeInOrder>();
         }
+
+        public bool IncreaseCakeAmount(int cakeID)
+        {
+            CakeInOrder found = null;
+            foreach(var x in listCakes)
+            {
+                if(x.cake.ID == cakeID)
+                {
+                    found = x; 
+                }
+            }
+            if(found!= null && !_cakeServices.checkOutOfCake(cakeID))
+            {
+                found.Amount++;
+            }
+            else
+            {
+                return false; 
+            }
+            return true;
+        }
+
+        public bool DecreaseCakeAmount(int cakeID)
+        {
+            CakeInOrder found = null;
+            foreach (var x in listCakes)
+            {
+                if (x.cake.ID == cakeID)
+                {
+                    found = x;
+                }
+            }
+            if (found != null && found.Amount >=1)
+            {
+                found.Amount--;
+            }
+            if(found.Amount == 0)
+            {
+                DeleteFromOrder(cakeID);
+                
+            }
+            return true;
+        }
+
+        private void DeleteFromOrder(int cakeID)
+        {
+            int index = -1; 
+            for(int i =0; i < listCakes.Count; ++i)
+            {
+                if(listCakes[i].cake.ID == cakeID)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            listCakes.RemoveAt(index);
+        }
     }
 }
