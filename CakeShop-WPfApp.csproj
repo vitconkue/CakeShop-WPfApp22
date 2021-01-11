@@ -125,6 +125,10 @@
     <Compile Include="Views\DetailBilPage.xaml.cs">
       <DependentUpon>DetailBilPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ChartPageViewModel.cs" />
+    <Compile Include="Views\ChartPage.xaml.cs">
+      <DependentUpon>ChartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UpdateCakePage.xaml.cs">
       <DependentUpon>UpdateCakePage.xaml</DependentUpon>
     </Compile>
@@ -145,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DetailBilPage.xaml">
+     <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -71,7 +71,7 @@
                         <TextBlock x:Name="BillTitle"  Style="{DynamicResource SideBarText}">HÓA ĐƠN</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button x:Name="ChartButton" Click="ChartButton_Click" Style="{DynamicResource SideBarBtn}">
+                <Button Command="{Binding UpdateView}" CommandParameter="ChartPage" Style="{DynamicResource SideBarBtn}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon x:Name="ChartIcon" Style="{DynamicResource SideBarIcon}" Kind="ChartBar" Height="17" ></materialDesign:PackIcon>
                         <TextBlock x:Name="ChartTitle"  Style="{DynamicResource SideBarText}">THỐNG KÊ</TextBlock>

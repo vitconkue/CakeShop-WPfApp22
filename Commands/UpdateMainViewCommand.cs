@@ -47,6 +47,10 @@ namespace CakeShop_WPfApp.Commands
                 viewModel.SelectedViewModel = new UpdateCakePageViewModel(viewModel);
             }
             //
+            if (parameter.ToString() == "ChartPage")
+            {
+                viewModel.SelectedViewModel = new ChartPageViewModel();
+            }
         }
 
     }
