@@ -107,6 +107,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\UpdateMainViewCommand.cs" />
+    <Compile Include="Helper\HelperFunctions.cs" />
     <Compile Include="Models\CakeInOrder.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\OrderModel.cs" />

@@ -8,6 +8,7 @@ using CakeShop_WPfApp.Database;
 using Dapper;
 using System.Data.SQLite;
 using System.Windows;
+using CakeShop_WPfApp.Helper;
 
 namespace CakeShop_WPfApp.Services
 {
@@ -21,6 +22,8 @@ namespace CakeShop_WPfApp.Services
         bool deleteCake(int IdToDelete);
 
         bool updateCakeInformationInDatabase(CakeModel changedTo); // pass in the cake model with changed information
+
+        List<CakeModel> SearchCake(string keyword, int cagetory = -1);
     }
     public class CakeServices: ICakeService
     {
@@ -148,6 +151,29 @@ namespace CakeShop_WPfApp.Services
                     return true;
                 else { return false; }
             }
+        }
+
+        public List<CakeModel> SearchCake(string keyword, int cagetory = -1)
+        {
+            // load id-name pair 
+            List<CakeModel> result = new List<CakeModel>();
+            List<(int, string)> keyvaluePair = new List<(int, string)>();
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                string sqlString = "SELECT ID,NAME FROM CAKE";
+
+                keyvaluePair = cnn.Query<(int, string)>(sqlString, new DynamicParameters()).ToList();
+            }
+
+            var filteredCakeName = keyvaluePair.Where(r => r.Item2.ToLower().Contains(keyword.ToLower()) ||
+                  HelperFunctions.RemovedUTF(r.Item2.ToLower()).Contains(HelperFunctions.RemovedUTF(keyword.ToLower()))).ToList();
+            filteredCakeName = filteredCakeName.OrderByDescending(r => HelperFunctions.rateSearchResult(keyword, r.Item2)).ToList();
+
+            foreach(var x in filteredCakeName)
+            {
+                result.Add(loadSingleCake(x.Item1));
+            }
+            return result;
         }
     }
 }
