@@ -27,19 +27,31 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="10*"></RowDefinition>
             </Grid.RowDefinitions>
-           
+                <StackPanel>
+                    
+                </StackPanel>
                 <TextBlock VerticalAlignment="Center" Grid.Row="0" HorizontalAlignment="Center" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontWeight="Bold">DOANH THU THEO THÁNG</TextBlock>
+            
                 <Grid Grid.Row="1">
-                    <lvc:CartesianChart Series="{Binding RevenueData}" LegendLocation="Bottom">
+                    <StackPanel>
+                        <ComboBox ItemsSource="{Binding CategoryList}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Name"
+                  SelectedValue="Tất cả" Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">
+
+                        </ComboBox>
+                        <lvc:CartesianChart Height="400" Margin="10" Series="{Binding RevenueData}" LegendLocation="Bottom">
                        
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Tháng" Labels="{Binding Months}"></lvc:Axis>
                             
                         </lvc:CartesianChart.AxisX>
                     </lvc:CartesianChart>
+                    </StackPanel>
                 </Grid>
           
         </Grid>
+            
         </materialDesign:Card>
         <materialDesign:Card Margin="20" Grid.Column="1">
             <Grid>
