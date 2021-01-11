@@ -1,21 +1,18 @@
-﻿using System;
+﻿using CakeShop_WPfApp.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CakeShop_WPfApp.Models;
-using CakeShop_WPfApp.Commands;
-using System.Windows.Input;
 using System.Windows;
-using Microsoft.Win32;
-using System.IO;
+using System.Windows.Input;
+using CakeShop_WPfApp.Models;
+using CakeShop_WPfApp.Services;
 
 namespace CakeShop_WPfApp.ViewModels
 {
-
-    public class AddCakePageViewModel : BaseViewModel
+    class UpdateCakePageViewModel: BaseViewModel
     {
-        private MainViewModel mainViewModel;
         //Biến binding
 
         private string _imageSource;
@@ -134,35 +131,38 @@ namespace CakeShop_WPfApp.ViewModels
 
         public ICommand doneButtonCommand { get; set; }
 
-        public AddCakePageViewModel(MainViewModel param)
+        private MainViewModel mainViewModel;
+
+        public CakeServices cakeServices = new CakeServices();
+        public UpdateCakePageViewModel(MainViewModel param)
         {
             mainViewModel = param;
-            addImageButtonCommand = new RelayCommand(o => addImageButtonClick());
+            addImageButtonCommand = new RelayCommand(o => updateImageButtonClick());
             doneButtonCommand = new RelayCommand(o => doneButtonClick());
-        }
-
-        private void addImageButtonClick()
-        {
-            var openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                File.ReadAllText(openFileDialog.FileName);
-                ImageSource = openFileDialog.FileName;
-            }
-            OnPropertyChanged(nameof(ImageSource));
-            MessageBox.Show("Add Image Successfully!!!");
+            CakeModel myCake = new CakeModel();
+            myCake = cakeServices.loadSingleCake(1);
+            Name = myCake.Name;
+            ImportPrice = myCake.ImportPrice;
+            SellingPrice = myCake.SellingPrice;
+            Amount = myCake.Amount;
+            Information = myCake.Information;
+            Unit = myCake.Unit;
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(ImportPrice));
+            OnPropertyChanged(nameof(SellingPrice));
+            OnPropertyChanged(nameof(Amount));
+            OnPropertyChanged(nameof(Information));
+            OnPropertyChanged(nameof(Unit));
         }
 
         private void doneButtonClick()
         {
-            CakeModel newCake = new CakeModel();
-            newCake.Name = Name;
-            newCake.ImportPrice = ImportPrice;
-            newCake.SellingPrice = SellingPrice;
-            newCake.Amount = Amount;
-            newCake.Information = Information;
-            newCake.Unit = Unit;
-            //Category
+            MessageBox.Show("B1 Clicked");
+        }
+
+        private void updateImageButtonClick()
+        {
+            MessageBox.Show("B2 Clicked");
         }
     }
 }

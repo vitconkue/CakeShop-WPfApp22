@@ -105,10 +105,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\UpdateMainViewCommand.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Services\CakeServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
+    <Compile Include="ViewModels\UpdateCakePageViewModel.cs" />
     <Compile Include="Views\UpdateCakePage.xaml.cs">
       <DependentUpon>UpdateCakePage.xaml</DependentUpon>
     </Compile>
