@@ -8,7 +8,7 @@
           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
+     TextElement.FontSize="15"
      TextOptions.TextFormattingMode="Ideal"
      TextOptions.TextRenderingMode="Auto"
      FontFamily="{DynamicResource MaterialDesignFont}">
@@ -23,21 +23,16 @@
                     <materialDesign:Card  Margin="30">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <StackPanel  Orientation="Vertical" Margin="20">
-                                <TextBlock HorizontalAlignment="Center" FontSize="26" FontWeight="ExtraBlack" Foreground="#d83300" >THÊM SẢN PHẨM MỚI</TextBlock>
-                                <TextBox  Foreground="#d83300"  Text="{Binding TripName}"  materialDesign:HintAssist.Hint="Tên chuyến đi" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" FontSize="18" Width="400" Margin="20"></TextBox>
-                                <ComboBox Foreground="#d83300" VerticalAlignment="Center" FontSize="18" Width="400" Margin="20" materialDesign:HintAssist.Hint="Search" materialDesign:HintAssist.HintOpacity=".26" IsEditable="True">
-                                    <ComboBoxItem
-										Content="Loại 1" />
-                                    <ComboBoxItem
-										Content="Loại 2" />
-                                    <ComboBoxItem
-										Content="Loại 3" />
-                                    <ComboBoxItem
-										Content="Loại 4" />
-                                </ComboBox>
-                                <TextBox Foreground="#d83300" Text="{Binding TripName}"  materialDesign:HintAssist.Hint="Giá nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" FontSize="18" Width="400" Margin="20"></TextBox>
-                                <TextBox Foreground="#d83300" Text="{Binding TripName}"  materialDesign:HintAssist.Hint="Giá bán" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" FontSize="18" Width="400" Margin="20"></TextBox>
-                                <TextBox Foreground="#d83300" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  VerticalAlignment="Top" Height="150" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Mô tả" FontSize="18" Width="400" Margin="20" />
+								<TextBlock HorizontalAlignment="Center" FontSize="17" FontWeight="ExtraBlack" Foreground="{DynamicResource PrimaryHueDarkBrush}" >THÊM SẢN PHẨM MỚI</TextBlock>
+                                <TextBox  Text="{Binding Name}"  materialDesign:HintAssist.Hint="Tên sản phẩm" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="400" Margin="20"></TextBox>
+								<ComboBox VerticalAlignment="Center" Width="400" Margin="20" materialDesign:HintAssist.Hint="Loại bánh" materialDesign:HintAssist.HintOpacity=".26" IsEditable="True">
+									<ComboBoxItem Content="Loại 1" />
+									<ComboBoxItem Content="Loại 2" />
+									<ComboBoxItem Content="Loại 3" />
+								</ComboBox>
+								<TextBox  Text="{Binding ImportPrice}"  materialDesign:HintAssist.Hint="Giá nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"  Width="400" Margin="20"></TextBox>
+                                <TextBox  Text="{Binding SellingPrice}"  materialDesign:HintAssist.Hint="Giá bán" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="400" Margin="20"></TextBox>
+								<TextBox  Text="{Binding Information}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  VerticalAlignment="Top" Height="150" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Mô tả"  Width="400" Margin="20" />
                             </StackPanel>
 
                         </StackPanel>
@@ -53,10 +48,10 @@
                 </Grid.RowDefinitions>
                 <materialDesign:Card Margin="30">
                     <StackPanel Orientation="Vertical" Margin="20">
-                        <TextBlock Foreground="#d83300" FontSize="26" FontWeight="ExtraBlack" HorizontalAlignment="Center" >NHẬP KHO</TextBlock>
+						<TextBlock Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="17" FontWeight="ExtraBlack" HorizontalAlignment="Center" >NHẬP KHO</TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBox  Foreground="#d83300"  Text="{Binding TripName}"  materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="18" Width="200" Margin="20"></TextBox>
-                            <ComboBox Foreground="#d83300" FontSize="18" Width="200" Margin="20,30,20,20" materialDesign:HintAssist.Hint="Đơn vị" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True">
+                            <TextBox Text="{Binding Amount}"  materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Width="200" Margin="20"></TextBox>
+                            <ComboBox Text="{Binding Unit}"  Width="200" Margin="20,30,20,20" materialDesign:HintAssist.Hint="Cái" materialDesign:HintAssist.HintOpacity=".26">
                                 <ComboBoxItem
 										Content="Cái" />
                                 <ComboBoxItem
@@ -70,9 +65,9 @@
 
                 <materialDesign:Card Margin="30" Grid.Row="1">
                     <StackPanel Orientation="Vertical" Margin="20">
-                        <TextBlock  FontSize="26" FontWeight="ExtraBlack" Foreground="#d83300" HorizontalAlignment="Center" >THÊM HÌNH ẢNH</TextBlock>
-                        <StackPanel>
-                            <Image Source="{Binding Images}">
+						<TextBlock  FontSize="17" FontWeight="ExtraBlack" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" >THÊM HÌNH ẢNH</TextBlock>
+                        <StackPanel Height="150" Width="150">
+                            <Image Source="{Binding ImageSource}">
                             </Image>
                         </StackPanel>
                     </StackPanel>
@@ -84,12 +79,12 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <Button Background="#d83300" Command="{Binding addImageButtonCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}" materialDesign:ButtonAssist.CornerRadius="25" ToolTip="Thêm ảnh nền chuyến đi" Width="150" Height="45">
+                            <Button  Command="{Binding addImageButtonCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}" materialDesign:ButtonAssist.CornerRadius="25" ToolTip="Thêm ảnh nền chuyến đi" Width="150" Height="45">
                                 <TextBlock Text="THÊM HÌNH ẢNH" />
                             </Button>
                         </StackPanel>
                         <StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,150,0">
-                            <Button Background="#d83300" Command="{Binding doneButtonCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}" materialDesign:ButtonAssist.CornerRadius="25" ToolTip="Hoàn thành và Lưu" Width="125" Height="45">
+                            <Button Command="{Binding doneButtonCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}" materialDesign:ButtonAssist.CornerRadius="25" ToolTip="Hoàn thành và Lưu" Width="125" Height="45">
                                 <TextBlock  Text="HOÀN THÀNH" />
                             </Button>
                         </StackPanel>

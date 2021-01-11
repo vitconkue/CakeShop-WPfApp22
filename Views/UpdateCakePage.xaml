@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="CakeShop_WPfApp.Views.UpdateCakePage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CakeShop_WPfApp"
+        mc:Ignorable="d"
+          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="15"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     FontFamily="{DynamicResource MaterialDesignFont}">
+	<Grid>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="1*" />
+			</Grid.ColumnDefinitions>
+			<StackPanel Orientation="Vertical">
+				<StackPanel>
+					<materialDesign:Card  Margin="30">
+						<StackPanel Orientation="Vertical" VerticalAlignment="Center">
+							<StackPanel  Orientation="Vertical" Margin="20">
+								<TextBlock FontSize="17" HorizontalAlignment="Center" FontWeight="ExtraBlack" Foreground="{DynamicResource PrimaryHueDarkBrush}" >CẬP NHẬT SẢN PHẨM</TextBlock>
+								<TextBox  Text="{Binding Name}"  materialDesign:HintAssist.Hint="Tên sản phẩm" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="400" Margin="20"></TextBox>
+								<ComboBox  VerticalAlignment="Center"  Width="400" Margin="20" materialDesign:HintAssist.Hint="Loại bánh" materialDesign:HintAssist.HintOpacity=".26" IsEditable="True">
+									<ComboBoxItem
+										Content="Loại 1" />
+									<ComboBoxItem
+										Content="Loại 2" />
+									<ComboBoxItem
+										Content="Loại 3" />
+									<ComboBoxItem
+										Content="Loại 4" />
+								</ComboBox>
+								<TextBox  Text="{Binding ImportPrice}"  materialDesign:HintAssist.Hint="Giá nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"  Width="400" Margin="20"></TextBox>
+								<TextBox  Text="{Binding SellingPrice}"  materialDesign:HintAssist.Hint="Giá bán" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"  Width="400" Margin="20"></TextBox>
+								<TextBox  Text="{Binding Information}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  VerticalAlignment="Top" Height="150" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Mô tả" Width="400" Margin="20" />
+							</StackPanel>
+						</StackPanel>
+					</materialDesign:Card>
+				</StackPanel>
+			</StackPanel>
+
+			<Grid Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="3*" />
+					<RowDefinition Height="3*" />
+					<RowDefinition Height="1*" />
+				</Grid.RowDefinitions>
+				<materialDesign:Card Margin="30">
+					<StackPanel Orientation="Vertical" Margin="20">
+						<TextBlock FontSize="17" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontWeight="ExtraBlack" HorizontalAlignment="Center" >NHẬP THÊM</TextBlock>
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+							<TextBox   Text="{Binding Amount}"  materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="200" Margin="20"></TextBox>
+							<ComboBox Text="{Binding Unit}"  Width="200" Margin="20,30,20,20" materialDesign:HintAssist.Hint="Cái" materialDesign:HintAssist.HintOpacity=".26">
+								<ComboBoxItem
+										Content="Cái" />
+								<ComboBoxItem
+										Content="Hộp" />
+								<ComboBoxItem
+										Content="Lốc" />
+							</ComboBox>
+						</StackPanel>
+					</StackPanel>
+				</materialDesign:Card>
+
+				<materialDesign:Card Margin="30" Grid.Row="1">
+					<StackPanel Orientation="Vertical" Margin="20">
+						<TextBlock FontSize="17" FontWeight="ExtraBlack" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" >CẬP NHẬT HÌNH ẢNH</TextBlock>
+						<StackPanel Height="150" Width="150">
+							<Image Source="{Binding ImageSource}">
+							</Image>
+						</StackPanel>
+					</StackPanel>
+				</materialDesign:Card>
+				<Grid Grid.Row="2">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1.25*" />
+							<ColumnDefinition Width="1*" />
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Column="0">
+							<Button  Command="{Binding addImageButtonCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}" materialDesign:ButtonAssist.CornerRadius="25" ToolTip="Thêm ảnh nền chuyến đi" Width="180" Height="45">
+								<TextBlock Text="THAY ĐỔI HÌNH ẢNH" />
+							</Button>
+						</StackPanel>
+						<StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,150,0">
+							<Button Command="{Binding doneButtonCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}" materialDesign:ButtonAssist.CornerRadius="25" ToolTip="Hoàn thành và Lưu" Width="125" Height="45">
+								<TextBlock  Text="HOÀN THÀNH" />
+							</Button>
+						</StackPanel>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Grid>
+	</Grid>
+</UserControl>

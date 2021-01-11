@@ -19,7 +19,10 @@
             <DataTemplate DataType="{x:Type viewmodels:AddCakePageViewModel}">
                 <views:AddNewCake/>
             </DataTemplate>
-            <ResourceDictionary.MergedDictionaries>
+			<DataTemplate DataType="{x:Type viewmodels:UpdateCakePageViewModel}">
+				<views:UpdateCakePage/>
+			</DataTemplate>
+			<ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />

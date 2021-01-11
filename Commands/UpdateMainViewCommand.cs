@@ -41,7 +41,12 @@ namespace CakeShop_WPfApp.Commands
             {
                 viewModel.SelectedViewModel = new AddCakePageViewModel(viewModel);
             }
-
+            //Xíu xóa
+            if(parameter.ToString()=="UpdateCakePage")
+            {
+                viewModel.SelectedViewModel = new UpdateCakePageViewModel(viewModel);
+            }
+            //
         }
 
     }
