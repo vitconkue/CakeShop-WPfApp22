@@ -24,6 +24,7 @@ namespace CakeShop_WPfApp.ViewModels
         public ICommand AddOrderToDB { get; set; }
         public ICommand RefreshPage { get; set; }
         public OrderServices OrderServices = new OrderServices();
+        
         private int totalPrice;
         public int TotalPrice
         {

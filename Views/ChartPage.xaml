@@ -62,7 +62,7 @@
 
                 <TextBlock VerticalAlignment="Center" Grid.Row="0" HorizontalAlignment="Center" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontWeight="Bold">DOANH THU THEO LOẠI BÁNH</TextBlock>
                 <Grid Grid.Row="1">
-                    <lvc:PieChart Series="{Binding CategoryData}"></lvc:PieChart>
+                    <lvc:PieChart Margin="10 0 10 30" Series="{Binding CategoryData}"></lvc:PieChart>
                 </Grid>
 
             </Grid>

@@ -13,10 +13,13 @@ namespace CakeShop_WPfApp.ViewModels
     {
         public ReportServices ReportServices = new ReportServices();
         public SeriesCollection RevenueData { get; set; }
+        public SeriesCollection CategoryData { get; set; }
         public ChartPageViewModel()
         {
             var data = ReportServices.GetMonthlyRevenue(2021);
+            var caterGoryRevenue = ReportServices.GetCategoryRevenue();
             InitRevenueData(data, 2021);
+            InitCategoryData(caterGoryRevenue);
         }
         public void InitRevenueData(List<int> data, int year)
         {
@@ -31,6 +34,22 @@ namespace CakeShop_WPfApp.ViewModels
                 });
 
         }
+
+        public void InitCategoryData(List<(string,int)> data)
+        {
+            CategoryData = new SeriesCollection { };
+            foreach(var element in data)
+            {
+                CategoryData.Add(
+                    new PieSeries
+                    {
+                        Title = element.Item1,
+                        Values = new ChartValues<int> { element.Item2 },
+                        DataLabels = true
+                    });
+
+            }
+        }
         public List<string> Months
         {
             get
@@ -39,5 +58,6 @@ namespace CakeShop_WPfApp.ViewModels
                 return new List<string>(allMonths);
             }
         }
+
     }
 }
