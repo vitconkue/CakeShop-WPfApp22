@@ -19,6 +19,8 @@ namespace CakeShop_WPfApp.Services
         List<OrderModel> LoadAllOrder();
 
         List<OrderModel> LoadAllOrderInYear(int year);
+
+        List<int> GetAllYearWithRevenue();
     }
     public class OrderServices : IOrderServices
     {
@@ -50,6 +52,28 @@ namespace CakeShop_WPfApp.Services
                     cnn.Execute(sqlAddCakeInOrder);
                 }
             }
+            return result;
+        }
+
+        public List<int> GetAllYearWithRevenue()
+        {
+            List<string> dateStrings = new List<string>();
+
+            List<int> result = new List<int>();
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                string sqlString = "SELECT DATE FROM ORDER";
+                dateStrings = cnn.Query<string>(sqlString, new DynamicParameters()).ToList();
+            }
+            foreach(var dateStr in dateStrings)
+            {
+                int yearParts = DateTime.ParseExact(dateStr, "dd-mm-yyyy", CultureInfo.InvariantCulture).Year; 
+                if(!result.Contains(yearParts))
+                {
+                    result.Add(yearParts);
+                }
+            }
+            result.Sort();
             return result;
         }
 
