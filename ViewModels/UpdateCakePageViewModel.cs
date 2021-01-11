@@ -8,6 +8,10 @@ using System.Windows;
 using System.Windows.Input;
 using CakeShop_WPfApp.Models;
 using CakeShop_WPfApp.Services;
+using System.IO;
+using Microsoft.Win32;
+using System.Collections.ObjectModel;
+using CakeShop_WPfApp.Services;
 
 namespace CakeShop_WPfApp.ViewModels
 {
@@ -127,6 +131,49 @@ namespace CakeShop_WPfApp.ViewModels
             }
         }
 
+        private string _categoryNameData;
+        public string CategoryNameData
+        {
+            get { return this._categoryNameData; }
+            set
+            {
+                if (this._categoryNameData != value)
+                {
+                    this._categoryNameData = value;
+                    this.OnPropertyChanged(nameof(_categoryNameData));
+                }
+            }
+        }
+
+        private ObservableCollection<CategoryModel> _allCategory;
+        public ObservableCollection<CategoryModel> AllCategory
+        {
+            get
+            {
+                return _allCategory;
+            }
+            set
+            {
+                _allCategory = value;
+                OnPropertyChanged(nameof(AllCategory));
+            }
+        }
+
+        private int _oldAmount;
+        public int OldAmount
+        {
+            get { return this._oldAmount; }
+            set
+            {
+                if (this._oldAmount != value)
+                {
+                    this._oldAmount = value;
+                    this.OnPropertyChanged(nameof(_oldAmount));
+                }
+            }
+        }
+
+        public CategoryServices categoryServices = new CategoryServices();
         public ICommand addImageButtonCommand { get; set; }
 
         public ICommand doneButtonCommand { get; set; }
@@ -134,36 +181,99 @@ namespace CakeShop_WPfApp.ViewModels
         private MainViewModel mainViewModel;
 
         public CakeServices cakeServices = new CakeServices();
-        public UpdateCakePageViewModel(MainViewModel param)
+        public UpdateCakePageViewModel(int CakeID, MainViewModel param)
         {
-            mainViewModel = param;
+            this.mainViewModel = param;
+            AllCategory = new ObservableCollection<CategoryModel>();
+            List<CategoryModel> tempList = new List<CategoryModel>();
+            tempList = categoryServices.LoadAll();
+            for (int i = 0; i < tempList.Count(); i++)
+            {
+                AllCategory.Add(tempList[i]);
+            }
             addImageButtonCommand = new RelayCommand(o => updateImageButtonClick());
-            doneButtonCommand = new RelayCommand(o => doneButtonClick());
+            doneButtonCommand = new RelayCommand(o => doneButtonClick(CakeID));
             CakeModel myCake = new CakeModel();
-            myCake = cakeServices.loadSingleCake(1);
+            myCake = cakeServices.loadSingleCake(CakeID);
             Name = myCake.Name;
             ImportPrice = myCake.ImportPrice;
             SellingPrice = myCake.SellingPrice;
             Amount = myCake.Amount;
             Information = myCake.Information;
             Unit = myCake.Unit;
-            ImageSource = "/Database/Images/CakeImages/1.png";
+            OldAmount = Amount;
+            for(int i=0;i<AllCategory.Count();i++)
+            {
+                if(AllCategory[i].Name == myCake.Category.Name)
+                {
+                    CategoryID = i;
+                }
+            }
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(ImportPrice));
             OnPropertyChanged(nameof(SellingPrice));
             OnPropertyChanged(nameof(Amount));
             OnPropertyChanged(nameof(Information));
             OnPropertyChanged(nameof(Unit));
+            OnPropertyChanged(nameof(ImageSource));
         }
 
-        private void doneButtonClick()
+        private void doneButtonClick(int CakeID)
         {
-            MessageBox.Show("B1 Clicked");
+            CakeModel newCake = new CakeModel();
+            newCake.Name = Name;
+            newCake.ImportPrice = ImportPrice;
+            newCake.SellingPrice = SellingPrice;
+            newCake.Amount = Amount + OldAmount;
+            newCake.Information = Information;
+            newCake.Unit = Unit;
+            newCake.ID = CakeID;
+
+            if (CategoryID == -1)
+            {
+                CategoryModel tempCategory = new CategoryModel();
+                tempCategory.ID = -1;
+                tempCategory.Name = CategoryNameData;
+                newCake.Category = tempCategory;
+
+            }
+            else
+            {
+                newCake.Category = AllCategory[CategoryID];
+            }
+            int ID = CakeID;
+            cakeServices.updateCakeInformationInDatabase(newCake);
+
+            if (ImageSource == null)
+            {
+                ImageSource = "";
+            }
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            directory += "Database\\Images\\CakeImages";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+            string fileName = ID.ToString() + ".png";
+            string sourcePath = ImageSource;
+            string targetPath = directory;
+            string sourceFile = System.IO.Path.Combine(sourcePath, "");
+            string destFile = System.IO.Path.Combine(targetPath, fileName);
+            System.IO.File.Delete(destFile);
+            System.IO.File.Copy(sourceFile, destFile, true);
+            MessageBox.Show("Cập nhật sản phẩm mới thành công!!!");
         }
 
         private void updateImageButtonClick()
         {
-            MessageBox.Show("B2 Clicked");
+            var openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                File.ReadAllText(openFileDialog.FileName);
+                ImageSource = openFileDialog.FileName;
+            }
+            OnPropertyChanged(nameof(ImageSource));
+            MessageBox.Show("Add Image Successfully!!!");
         }
     }
 }

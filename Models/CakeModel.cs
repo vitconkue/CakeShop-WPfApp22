@@ -33,7 +33,7 @@ namespace CakeShop_WPfApp.Models
             get
             {
                 string file = AppDomain.CurrentDomain.BaseDirectory;
-                Uri path = new Uri($"{file}Database\\Images\\CakeImages\\{ID}.jpg");
+                Uri path = new Uri($"{file}Database\\Images\\CakeImages\\{ID}.png");
                 return path;
             }
         }

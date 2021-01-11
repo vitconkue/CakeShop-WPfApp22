@@ -78,7 +78,7 @@
                                                 <TextBlock>Xem chi tiết</TextBlock>
                                             </StackPanel>
                                         </Button>
-                                        <Button>
+										<Button Command="{Binding DataContext.GotoUpdatePage, ElementName=CakeListView }" CommandParameter="{Binding ID}" Margin="0 0 5 0">
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon Kind="Update"></materialDesign:PackIcon>
                                                 <TextBlock>Cập nhật</TextBlock>
