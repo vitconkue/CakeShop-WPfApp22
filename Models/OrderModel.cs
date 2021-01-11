@@ -69,6 +69,9 @@ namespace CakeShop_WPfApp.Models
             
             
         }
-        
+        public OrderModel()
+        {
+            listCakes = new List<CakeInOrder>();
+        }
     }
 }
