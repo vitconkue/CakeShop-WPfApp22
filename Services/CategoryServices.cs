@@ -15,6 +15,8 @@ namespace CakeShop_WPfApp.Services
     {
         CategoryModel LoadSingleCategory(int IdToLoad);
         bool AddCategory(CategoryModel category); // pass model without ID
+
+        List<CategoryModel> LoadAll();
     }
     class CategoryServices : ICategoryServices
     {
@@ -31,6 +33,18 @@ namespace CakeShop_WPfApp.Services
                 return false;
             }
         }
+
+        public List<CategoryModel> LoadAll()
+        {
+            List<CategoryModel> result = new List<CategoryModel>();
+            string sqlString = $"SELECT * FROM CATEGORY";
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                result = cnn.Query<CategoryModel>(sqlString, new DynamicParameters()).ToList();
+            }
+            return result;
+        }
+
         public CategoryModel LoadSingleCategory(int IdToLoad)
         {
             CategoryModel result = new CategoryModel();
