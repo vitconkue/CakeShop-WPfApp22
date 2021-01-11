@@ -13,7 +13,7 @@
      TextOptions.TextRenderingMode="Auto"
    
      FontFamily="{DynamicResource MaterialDesignFont}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
 
@@ -59,12 +59,12 @@
                     <TextBox Text="{Binding PlaceNameData}"   materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"  Width="260" Margin="20"></TextBox>
                     <StackPanel Margin="20 10">
                         <ScrollViewer>
-                            <DataGrid IsReadOnly="True" ItemsSource="{Binding PlaceList, Mode=OneWay}"  AutoGenerateColumns="False">
+                            <DataGrid Height="350" IsReadOnly="True" ItemsSource="{Binding CakeInOrders, Mode=OneWay}"  AutoGenerateColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn  Header="Mã bánh" Binding="{Binding Name}"/>
-                                    <DataGridTextColumn  Header="Tên bánh" Binding="{Binding Information}"/>
-                                    <DataGridTextColumn Header="Giá" Binding="{Binding DateStart}"/>
-                                    <DataGridTextColumn Header="Số lượng" Binding="{Binding DateFinish}"/>
+                                    <DataGridTextColumn  Header="Mã bánh" Binding="{Binding cake.ID}"/>
+                                    <DataGridTextColumn  Header="Tên bánh" Binding="{Binding cake.Name}"/>
+                                    <DataGridTextColumn Header="Giá" Binding="{Binding SellPrice}"/>
+                                    <DataGridTextColumn Header="Số lượng" Binding="{Binding Amount}"/>
                                 </DataGrid.Columns>
 
                             </DataGrid>
@@ -105,7 +105,7 @@
                         </StackPanel>
                     </Grid>
                     <Grid Margin="10" HorizontalAlignment="Center"  Grid.Row="1">
-                        <ListView ItemsSource="{Binding CakeList}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView  ItemsSource="{Binding CakeList}" x:Name="CakeListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel />
@@ -117,15 +117,30 @@
                                         <materialDesign:TransitioningContent.OpeningEffects>
                                             <materialDesign:TransitionEffect  Kind="SlideInFromRight"/>
                                         </materialDesign:TransitioningContent.OpeningEffects>
-                                        <materialDesign:Card Height="200" Width="200">
-                                            <Grid Height="200" Width="200">
+                                        <materialDesign:Card Height="250" Width="250">
+                                            <Grid HorizontalAlignment="Center">
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="10*"></RowDefinition>
+                                                    <RowDefinition Height="5*"></RowDefinition>
                                                     <RowDefinition></RowDefinition>
                                                 </Grid.RowDefinitions>
-                                                <Image Grid.Row="0"></Image>
-                                                <StackPanel Grid.Row="1">
-                                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                                <StackPanel Margin="0 10 0 0 " HorizontalAlignment="Center" Grid.Row="0">
+                                                    <TextBlock Margin="0 0 0 10" HorizontalAlignment="Center" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
+                                                    <Image Height="150" Width="180" Source="{Binding ImageLink}"></Image>
+
+                                                </StackPanel>
+
+                                                <StackPanel VerticalAlignment="Center" Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="1">
+                                                    <StackPanel Margin="0 0 5 0" VerticalAlignment="Center " HorizontalAlignment="Center" Orientation="Horizontal">
+                                                        <TextBlock  Foreground="{DynamicResource PrimaryHueDarkBrush}" Margin="0 0 10 0">Giá bán:</TextBlock>
+                                                        <TextBlock  Text="{Binding SellingPrice, StringFormat={} {0} VND}"></TextBlock>
+                                                    </StackPanel>
+                                                    <Button Command="{Binding DataContext.AddToBill, ElementName=CakeListView }" CommandParameter="{Binding ID}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <materialDesign:PackIcon Kind="AddCircleOutline"></materialDesign:PackIcon>
+                                                            <TextBlock>Thêm</TextBlock>
+                                                        </StackPanel>
+                                                    </Button>
+                                                    
                                                 </StackPanel>
                                             </Grid>
                                         </materialDesign:Card>
