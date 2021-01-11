@@ -17,6 +17,8 @@ namespace CakeShop_WPfApp.Services
         bool AddCategory(CategoryModel category); // pass model without ID
 
         List<CategoryModel> LoadAll();
+
+         int GetSumRevenue(int categoryID);
     }
     public class CategoryServices : ICategoryServices
     {
@@ -58,6 +60,27 @@ namespace CakeShop_WPfApp.Services
 
             }
             return result;
+        }
+
+        public int GetSumRevenue(int categoryID)
+        {
+            int result = 0 ;
+            List<(int, int)> sellpriceAndAmount = new List<(int, int)>();
+
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                string sqlString = $"SELECT SELLPRICE, CAKEINORDER.AMOUNT FROM CAKEINORDER JOIN CAKE ON CAKE.ID = CAKEINORDER.CAKEID WHERE CAKE.CATEGORYID = {categoryID} ";
+                sellpriceAndAmount =  cnn.Query<(int, int)>(sqlString, new DynamicParameters()).ToList();
+            }
+
+            foreach(var x in sellpriceAndAmount)
+            {
+                result += x.Item1 * x.Item2; 
+            }
+
+
+
+            return result; 
         }
     }
 }
