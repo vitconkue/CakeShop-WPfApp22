@@ -23,13 +23,13 @@ namespace CakeShop_WPfApp.Services
     }
     public class CakeServices: ICakeService
     {
-        private string _connnectionString = DatabaseAccess.LoadConnectionString();
+        private string _connectionString = DatabaseAccess.LoadConnectionString();
         public List<CakeModel> GetAllCakes()
         {
             List<CakeModel> result = new List<CakeModel>();
-            string connectionString = DatabaseAccess.LoadConnectionString();
+         
             string sqlString = "SELECT * FROM CAKE";
-            using (var cnn = new SQLiteConnection(connectionString))
+            using (var cnn = new SQLiteConnection(_connectionString))
             {
                 //query 
                 result = cnn.Query<CakeModel>(sqlString, new DynamicParameters()).ToList();
@@ -38,17 +38,14 @@ namespace CakeShop_WPfApp.Services
             return result;
         }
 
-        public CakeModel GetCakeWithID(int id)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public bool addCake(CakeModel cakeModel) // without cake ID
         {
             string insertSQLstring = "INSERT INTO CAKE(NAME,IMPORTPRICE,SELLINGPRICE,AMOUNT,CATEGORYID,UNIT,INFORMATION) " +
                  "VALUES (@Name,@ImportPrice,@SellingPrice,@Amount,@CategoryID,@Unit,@Information)";
 
-            using (var cnn = new SQLiteConnection(_connnectionString))
+            using (var cnn = new SQLiteConnection(_connectionString))
             {
                 // insert 
                 try
@@ -70,7 +67,7 @@ namespace CakeShop_WPfApp.Services
             var result = new CakeModel();
             var catetoryService = new CategoryServices();
             string sqlString = $"SELECT * FROM CAKE WHERE ID = {IdToLoad}";
-            using (var cnn = new SQLiteConnection(_connnectionString))
+            using (var cnn = new SQLiteConnection(_connectionString))
             {
                 var output = cnn.QueryFirst<CakeModel>(sqlString, new DynamicParameters());
                 int categoryID = cnn.QueryFirst<int>($"SELECT CategoryID FROM CAKE WHERE ID = {IdToLoad}");
@@ -84,7 +81,7 @@ namespace CakeShop_WPfApp.Services
 
         public bool deleteCake(int IdToDelete)
         {
-            using (var cnn = new SQLiteConnection(_connnectionString))
+            using (var cnn = new SQLiteConnection(_connectionString))
             {
                 var output = cnn.Execute($"DELETE FROM CAKE WHERE ID = {IdToDelete}");
 
@@ -107,7 +104,7 @@ namespace CakeShop_WPfApp.Services
                 $"INFORMATION = @Information " +
                 $"WHERE ID = {changedTo.ID}";
 
-            using (var cnn = new SQLiteConnection(_connnectionString))
+            using (var cnn = new SQLiteConnection(_connectionString))
             {
                 var output = cnn.Execute(sqlUpdateString, changedTo);
 
