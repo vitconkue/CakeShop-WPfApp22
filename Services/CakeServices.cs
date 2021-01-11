@@ -40,10 +40,10 @@ namespace CakeShop_WPfApp.Services
 
        
 
-        public bool addCake(CakeModel cakeModel) // without cake ID
+        public bool addCake(CakeModel cakeModel) // without cake ID, without categoryid
         {
-            string insertSQLstring = "INSERT INTO CAKE(NAME,IMPORTPRICE,SELLINGPRICE,AMOUNT,CATEGORYID,UNIT,INFORMATION) " +
-                 "VALUES (@Name,@ImportPrice,@SellingPrice,@Amount,@CategoryID,@Unit,@Information)";
+            string insertSQLstring = $"INSERT INTO CAKE(NAME,IMPORTPRICE,SELLINGPRICE,AMOUNT,CATEGORYID,UNIT,INFORMATION) " +
+                 $"VALUES (@Name,@ImportPrice,@SellingPrice,@Amount,{cakeModel.Category.ID},@Unit,@Information)";
 
             using (var cnn = new SQLiteConnection(_connectionString))
             {
@@ -99,7 +99,7 @@ namespace CakeShop_WPfApp.Services
                 $"IMPORTPRICE = @ImportPrice, " +
                 $"SELLINGPRICE  = @SellingPrice, " +
                 $"AMOUNT = @Amount, " +
-                $"CATEGORYID = @CategoryID, " +
+                $"CATEGORYID = {changedTo.Category.ID}, " +
                 $"UNIT = @Unit, " +
                 $"INFORMATION = @Information " +
                 $"WHERE ID = {changedTo.ID}";

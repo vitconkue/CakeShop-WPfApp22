@@ -22,12 +22,52 @@ namespace CakeShop_WPfApp.Services
         private string _connectionString = DatabaseAccess.LoadConnectionString();
         public bool AddOrder(OrderModel orderModel)
         {
-            throw new NotImplementedException();
+            // add to order table 
+            bool result = false;
+            int currentMaxID;
+            string sqlInsertString = $"INSERT INTO BILL(DATE,CUSTOMERNAME,CUSTOMERPHONE) VALUES (@Date, @CustomerName, @CustomerPhone)";
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                int insertResult = cnn.Execute(sqlInsertString, orderModel);
+                result = (insertResult == 1);
+
+                // get newly added orderID
+                currentMaxID = cnn.QueryFirst<int>("SELECT IFNULL(MAX(ID), 0) FROM BILL");
+            }
+
+
+
+            // Add to cakeinorder table
+            List<CakeInOrder> listCakeOrders = orderModel.listCakes;
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                foreach (var x in listCakeOrders)
+                {
+                    string sqlAddCakeInOrder = $"INSERT INTO CAKEINORDER VALUES ({currentMaxID},{x.cake.ID},{x.SellPrice},{x.Amount})";
+                    cnn.Execute(sqlAddCakeInOrder);
+                }
+            }
+            return result;
         }
 
         public List<OrderModel> LoadAllOrder()
         {
-            throw new NotImplementedException();
+            CakeServices cakeServices = new CakeServices();
+
+            List<OrderModel> result = new List<OrderModel>();
+            List<int> listOrderID = new List<int>();
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                // load all orderid 
+
+                listOrderID = cnn.Query<int>("SELECT ID FROM BILL").ToList();
+            }
+            foreach (var orderId in listOrderID)
+            {
+                result.Add(LoadSingleOrder(orderId));
+            }
+
+            return result;
         }
 
         public OrderModel LoadSingleOrder(int orderID)
