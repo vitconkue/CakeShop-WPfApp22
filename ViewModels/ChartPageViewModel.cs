@@ -32,7 +32,6 @@ namespace CakeShop_WPfApp.ViewModels
                     Values = new ChartValues<double> { data[0], data[1], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11] },
                     Title = $"Doanh thu trong năm {year}"
                 });
-
         }
 
         public void InitCategoryData(List<(string,int)> data)
