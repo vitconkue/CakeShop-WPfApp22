@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows;
 using Microsoft.Win32;
 using System.IO;
+using System.Collections.ObjectModel;
+using CakeShop_WPfApp.Services;
 
 namespace CakeShop_WPfApp.ViewModels
 {
@@ -97,7 +99,21 @@ namespace CakeShop_WPfApp.ViewModels
                 if (this._categoryID != value)
                 {
                     this._categoryID = value;
-                    this.OnPropertyChanged(nameof(_categoryID));
+                    this.OnPropertyChanged(nameof(_category));
+                }
+            }
+        }
+
+        private CategoryModel _category;
+        public CategoryModel Category
+        {
+            get { return this._category; }
+            set
+            {
+                if (this._category != value)
+                {
+                    this._category = value;
+                    this.OnPropertyChanged(nameof(_category));
                 }
             }
         }
@@ -130,6 +146,37 @@ namespace CakeShop_WPfApp.ViewModels
             }
         }
 
+        private ObservableCollection<CategoryModel> _allCategory;
+        public ObservableCollection<CategoryModel> AllCategory
+        {
+            get
+            {
+                return _allCategory;
+            }
+            set
+            {
+                _allCategory = value;
+                OnPropertyChanged(nameof(AllCategory));
+            }
+        }
+
+        private string _categoryNameData;
+        public string CategoryNameData
+        {
+            get { return this._categoryNameData; }
+            set
+            {
+                if (this._categoryNameData != value)
+                {
+                    this._categoryNameData = value;
+                    this.OnPropertyChanged(nameof(_categoryNameData));
+                }
+            }
+        }
+
+        public CategoryServices categoryServices = new CategoryServices();
+
+        public CakeServices cakeServices = new CakeServices();
         public ICommand addImageButtonCommand { get; set; }
 
         public ICommand doneButtonCommand { get; set; }
@@ -139,6 +186,15 @@ namespace CakeShop_WPfApp.ViewModels
             mainViewModel = param;
             addImageButtonCommand = new RelayCommand(o => addImageButtonClick());
             doneButtonCommand = new RelayCommand(o => doneButtonClick());
+            AllCategory = new ObservableCollection<CategoryModel>();
+            List<CategoryModel> tempList = new List<CategoryModel>();
+            tempList = categoryServices.LoadAll();
+            for(int i=0;i<tempList.Count();i++)
+            {
+                AllCategory.Add(tempList[i]);
+            }
+            //Set mặc định cho Unit
+            Unit = "Cái";
         }
 
         private void addImageButtonClick()
@@ -162,7 +218,9 @@ namespace CakeShop_WPfApp.ViewModels
             newCake.Amount = Amount;
             newCake.Information = Information;
             newCake.Unit = Unit;
-            //Category
+            newCake.Category = AllCategory[CategoryID];
+            cakeServices.addCake(newCake);
+            MessageBox.Show("Thêm sản phẩm mới thành công!!!");
         }
     }
 }
