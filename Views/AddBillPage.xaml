@@ -79,9 +79,9 @@
                     <TextBox x:Name="CustomerPhone" Text="{Binding PlaceNameData}"   materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"  Width="260" Margin="20"></TextBox>
                     <StackPanel >
                         <ScrollViewer>
-                            <DataGrid Margin="10" Height="350" IsReadOnly="True" Name="OrderData" ItemsSource="{Binding CakeInOrders, Mode=OneWay}"  AutoGenerateColumns="False">
+                            <DataGrid BorderBrush="Black" BorderThickness="1"  Margin="10" Height="350" IsReadOnly="True" Name="OrderData" ItemsSource="{Binding CakeInOrders, Mode=OneWay}"  AutoGenerateColumns="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn  Header="Mã bánh" Binding="{Binding cake.ID}"/>
+                                    <DataGridTextColumn  Header="Mã bánh" Binding="{Binding cake.ID, StringFormat={}B{0}}"/>
                                     <DataGridTextColumn  Header="Tên bánh" Binding="{Binding cake.Name}"/>
                                     <DataGridTextColumn Header="Giá" Binding="{Binding SellPrice}"/>
                                     <DataGridTextColumn Header="Số lượng" Binding="{Binding Amount}"/>

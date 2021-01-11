@@ -113,7 +113,11 @@
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Services\CakeServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
+    <Compile Include="ViewModels\DetailBillPageViewModel.cs" />
     <Compile Include="ViewModels\UpdateCakePageViewModel.cs" />
+    <Compile Include="Views\DetailBilPage.xaml.cs">
+      <DependentUpon>DetailBilPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UpdateCakePage.xaml.cs">
       <DependentUpon>UpdateCakePage.xaml</DependentUpon>
     </Compile>
@@ -130,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CakeDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DetailBilPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
