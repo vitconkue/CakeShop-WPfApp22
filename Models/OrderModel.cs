@@ -15,7 +15,13 @@ namespace CakeShop_WPfApp.Models
         public string CustomerPhone { get; set; }
 
         public List<CakeInOrder> listCakes { get; set; }
-
+        public int TotalMoney
+        {
+            get
+            {
+                return CalculateSum();
+            }
+        }
         public CakeServices _cakeServices = new CakeServices();
         public int CalculateSum()
         {

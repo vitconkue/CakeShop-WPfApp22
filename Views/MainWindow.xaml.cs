@@ -26,5 +26,37 @@ namespace CakeShop_WPfApp
             InitializeComponent();
             DataContext = new MainViewModel();
         }
+
+     
+
+        private void ChartButton_Click(object sender, RoutedEventArgs e)
+        {
+            HomeIcon.Foreground = Brushes.White;
+            HomeTitle.Foreground = Brushes.White;
+            BillIcon.Foreground = Brushes.White;
+            BillTitle.Foreground = Brushes.White;
+            ChartIcon.Foreground = Brushes.Yellow;
+            ChartTitle.Foreground = Brushes.Yellow;
+        }
+
+        private void BillButton_Click(object sender, RoutedEventArgs e)
+        {
+            HomeIcon.Foreground = Brushes.White;
+            HomeTitle.Foreground = Brushes.White;
+            BillIcon.Foreground = Brushes.Yellow;
+            BillTitle.Foreground = Brushes.Yellow;
+            ChartIcon.Foreground = Brushes.White;
+            ChartTitle.Foreground = Brushes.White;
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HomeIcon.Foreground = Brushes.Yellow;
+            HomeTitle.Foreground = Brushes.Yellow;
+            BillIcon.Foreground = Brushes.White;
+            BillTitle.Foreground = Brushes.White;
+            ChartIcon.Foreground = Brushes.White;
+            ChartTitle.Foreground = Brushes.White;
+        }
     }
 }

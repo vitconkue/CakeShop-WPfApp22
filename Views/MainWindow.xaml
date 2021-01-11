@@ -59,22 +59,22 @@
         <Grid Background="#4a4853" Grid.Row="0">
             <StackPanel  Orientation="Horizontal">
                 <materialDesign:PackIcon Foreground="Yellow" Margin="40,0,0,10.2"  Kind="Cake" Height="45" Width="52" VerticalAlignment="Bottom"></materialDesign:PackIcon>
-                <Button Command="{Binding UpdateView}" CommandParameter="HomePage" Style="{DynamicResource SideBarBtn}">
+                <Button Click="HomeButton_Click" x:Name="HomeButton" Command="{Binding UpdateView}" CommandParameter="HomePage" Style="{DynamicResource SideBarBtn}">
                     <StackPanel  Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="Yellow" Style="{DynamicResource SideBarIcon}" Kind="Home" Height="17"></materialDesign:PackIcon>
-                        <TextBlock Foreground="Yellow" Style="{DynamicResource SideBarText}">TRANG CHỦ</TextBlock>
+                        <materialDesign:PackIcon x:Name="HomeIcon" Foreground="Yellow" Style="{DynamicResource SideBarIcon}" Kind="Home" Height="17"></materialDesign:PackIcon>
+                        <TextBlock x:Name="HomeTitle" Foreground="Yellow" Style="{DynamicResource SideBarText}">TRANG CHỦ</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button  Command="{Binding UpdateView}" CommandParameter='BillPage' Style="{DynamicResource SideBarBtn}">
+                <Button Click="BillButton_Click" x:Name="BillButton"  Command="{Binding UpdateView}" CommandParameter='BillPage' Style="{DynamicResource SideBarBtn}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Style="{DynamicResource SideBarIcon}" Kind="Paper" Height="17" ></materialDesign:PackIcon>
-                        <TextBlock  Style="{DynamicResource SideBarText}">HÓA ĐƠN</TextBlock>
+                        <materialDesign:PackIcon x:Name="BillIcon" Style="{DynamicResource SideBarIcon}" Kind="Paper" Height="17" ></materialDesign:PackIcon>
+                        <TextBlock x:Name="BillTitle"  Style="{DynamicResource SideBarText}">HÓA ĐƠN</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Style="{DynamicResource SideBarBtn}">
+                <Button x:Name="ChartButton" Click="ChartButton_Click" Style="{DynamicResource SideBarBtn}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Style="{DynamicResource SideBarIcon}" Kind="ChartBar" Height="17" ></materialDesign:PackIcon>
-                        <TextBlock  Style="{DynamicResource SideBarText}">THỐNG KÊ</TextBlock>
+                        <materialDesign:PackIcon x:Name="ChartIcon" Style="{DynamicResource SideBarIcon}" Kind="ChartBar" Height="17" ></materialDesign:PackIcon>
+                        <TextBlock x:Name="ChartTitle"  Style="{DynamicResource SideBarText}">THỐNG KÊ</TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>

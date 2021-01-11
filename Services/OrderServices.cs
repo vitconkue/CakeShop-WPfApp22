@@ -12,12 +12,12 @@ namespace CakeShop_WPfApp.Services
 {
     public interface IOrderServices
     {
-         OrderModel LoadSingleOrder(int orderID);
+        OrderModel LoadSingleOrder(int orderID);
         bool AddOrder(OrderModel orderModel);
 
-        List<OrderModel> LoadAllOrder(); 
+        List<OrderModel> LoadAllOrder();
     }
-    class OrderServices: IOrderServices
+    public class OrderServices : IOrderServices
     {
         private string _connectionString = DatabaseAccess.LoadConnectionString();
         public bool AddOrder(OrderModel orderModel)
@@ -100,6 +100,6 @@ namespace CakeShop_WPfApp.Services
             return result;
         }
 
-      
+
     }
 }
