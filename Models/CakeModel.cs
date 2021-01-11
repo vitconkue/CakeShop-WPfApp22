@@ -20,11 +20,20 @@ namespace CakeShop_WPfApp.Models
         public string Unit { get; set; }
         public string Information { get; set; }
 
-     
+
 
         public void ShowConsole()
         {
             Console.WriteLine($"Cake ID: {ID} , Cake name: {Name} , Unit: {Unit}");
+        }
+        public Uri ImageLink
+        {
+            get
+            {
+                string file = AppDomain.CurrentDomain.BaseDirectory;
+                Uri path = new Uri($"{file}Database\\Images\\CakeImages\\{ID}.jpg");
+                return path;
+            }
         }
     }
 }

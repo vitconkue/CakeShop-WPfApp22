@@ -16,7 +16,7 @@ namespace CakeShop_WPfApp.Services
         CategoryModel LoadSingleCategory(int IdToLoad);
         bool AddCategory(CategoryModel category); // pass model without ID
     }
-    class CategoryServices : ICategoryServices
+    public class CategoryServices : ICategoryServices
     {
         private string _connectionString = DatabaseAccess.LoadConnectionString();
 

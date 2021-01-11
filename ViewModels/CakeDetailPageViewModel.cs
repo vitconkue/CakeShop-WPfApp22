@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace CakeShop_WPfApp.ViewModels
 {
-    public class AddBillPageViewModel : BaseViewModel
+    public class CakeDetailPageViewModel : BaseViewModel
     {
+        public CakeModel Cake { get; set; }
         public CakeServices CakeServices = new CakeServices();
-        public List<CakeModel> CakeList { get; set; }
-        private MainViewModel mainViewModel;
-        public AddBillPageViewModel(MainViewModel param)
+        public string Title { get; set; }
+        public CakeDetailPageViewModel(int cakeID)
         {
-            mainViewModel = param;
-            CakeList = CakeServices.GetAllCakes();
+            //Cake = CakeServices.GetCakeWithID(cakeID);
+            Title = $"Bánh {cakeID}";
         }
     }
 }
