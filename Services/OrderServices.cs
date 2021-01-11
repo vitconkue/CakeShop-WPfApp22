@@ -62,7 +62,7 @@ namespace CakeShop_WPfApp.Services
             List<int> result = new List<int>();
             using (var cnn = new SQLiteConnection(_connectionString))
             {
-                string sqlString = "SELECT DATE FROM ORDER";
+                string sqlString = "SELECT DATE FROM BILL";
                 dateStrings = cnn.Query<string>(sqlString, new DynamicParameters()).ToList();
             }
             foreach(var dateStr in dateStrings)

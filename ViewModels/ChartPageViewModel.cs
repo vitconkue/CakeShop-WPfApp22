@@ -12,13 +12,57 @@ namespace CakeShop_WPfApp.ViewModels
     public class ChartPageViewModel : BaseViewModel
     {
         public ReportServices ReportServices = new ReportServices();
-        public SeriesCollection RevenueData { get; set; }
-        public SeriesCollection CategoryData { get; set; }
+        private SeriesCollection revenueData;
+
+        public SeriesCollection RevenueData
+        {
+            get
+            {
+                return revenueData;
+            }
+            set
+            {
+                revenueData = value;
+                OnPropertyChanged(nameof(RevenueData));
+            }
+        }
+        private SeriesCollection categoryData;
+        public SeriesCollection CategoryData
+        {
+            get
+            {
+                return categoryData;
+            }
+            set
+            {
+                categoryData = value;
+                OnPropertyChanged(nameof(CategoryData));
+            }
+        }
+        public OrderServices OrderServices = new OrderServices();
+        public List<int> YearList { get; set; }
+        private int currentYear;
+        public int CurrentYear
+        {
+            get
+            {
+                return currentYear;
+            }
+            set
+            {
+                currentYear = value;
+                var data = ReportServices.GetMonthlyRevenue(CurrentYear);
+                InitRevenueData(data, CurrentYear);
+                OnPropertyChanged(nameof(CurrentYear));
+            }
+        }
         public ChartPageViewModel()
         {
-            var data = ReportServices.GetMonthlyRevenue(2021);
+            YearList = OrderServices.GetAllYearWithRevenue();
+            CurrentYear = YearList[0];
+            var data = ReportServices.GetMonthlyRevenue(CurrentYear);
             var caterGoryRevenue = ReportServices.GetCategoryRevenue();
-            InitRevenueData(data, 2021);
+            InitRevenueData(data, CurrentYear);
             InitCategoryData(caterGoryRevenue);
         }
         public void InitRevenueData(List<int> data, int year)
@@ -34,10 +78,10 @@ namespace CakeShop_WPfApp.ViewModels
                 });
         }
 
-        public void InitCategoryData(List<(string,int)> data)
+        public void InitCategoryData(List<(string, int)> data)
         {
             CategoryData = new SeriesCollection { };
-            foreach(var element in data)
+            foreach (var element in data)
             {
                 CategoryData.Add(
                     new PieSeries
@@ -53,7 +97,7 @@ namespace CakeShop_WPfApp.ViewModels
         {
             get
             {
-                string[] allMonths ={ "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4" , "Tháng 5" , "Tháng 6" , "Tháng 7" , "Tháng 8","Tháng 9", "Tháng 10" , "Tháng 11" ,"Tháng 12" };
+                string[] allMonths = { "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12" };
                 return new List<string>(allMonths);
             }
         }
