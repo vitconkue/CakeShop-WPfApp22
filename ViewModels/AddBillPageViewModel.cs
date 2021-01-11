@@ -15,17 +15,26 @@ namespace CakeShop_WPfApp.ViewModels
     {
         public CakeServices CakeServices = new CakeServices();
         public List<CakeModel> CakeList { get; set; }
-        private ObservableCollection<CakeInOrder> _cakeInOrders;
+        private OrderModel _order;
         public ICommand AddToBill { get; set; }
+        public ICommand DeleteCakeInOrder {get; set; }
+        public ICommand IncreaseAmount { get; set; }
+        public ICommand DecreaseAmount { get; set; }
+        public OrderModel Order
+        {
+            get;
+            set;
+        }
+        private ObservableCollection<CakeInOrder> cakeInOrders;
         public ObservableCollection<CakeInOrder> CakeInOrders
         {
-            get
-            {
-                return _cakeInOrders;
-            }
             set
             {
-                _cakeInOrders = value;
+                cakeInOrders = value;
+            }
+            get
+            {
+                return cakeInOrders;
                 OnPropertyChanged(nameof(CakeInOrders));
             }
         }
@@ -34,23 +43,40 @@ namespace CakeShop_WPfApp.ViewModels
         {
             mainViewModel = param;
             CakeList = CakeServices.GetAllCakes();
+            Order = new OrderModel();
             CakeInOrders = new ObservableCollection<CakeInOrder>();
+            CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes);
             AddToBill = new RelayCommand(o => AddCakeToBill(o));
+            DeleteCakeInOrder = new RelayCommand(o => DeleteCake(o));
+            IncreaseAmount = new RelayCommand(o => IncreseAmountInOrder(o));
+            DecreaseAmount = new RelayCommand(o => DecreseAmountInOrder(o));
         }
-        public void AddCakeToBill(object parameter){
-
-            var Cake = CakeServices.loadSingleCake(int.Parse(parameter.ToString()));
-            var CakeOrder = new CakeInOrder();
-            CakeOrder.cake = Cake;
-            CakeOrder.Amount = 1;
-            CakeOrder.SellPrice = Cake.SellingPrice;
-            CakeInOrders.Add(CakeOrder);
-            OnPropertyChanged(nameof(CakeInOrders));
-        }
-        public bool CheckIsExistInOrder(int id)
+        public void AddCakeToBill(object parameter)
         {
 
-            return false;
+            var Cake = CakeServices.loadSingleCake(int.Parse(parameter.ToString()));
+            Order.AddCake(Cake, 1);
+            CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes); 
+            OnPropertyChanged(nameof(CakeInOrders));
+
+        }
+        public void DeleteCake(object parameter)
+        {
+            var id = int.Parse(parameter.ToString());
+            CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes);
+            OnPropertyChanged(nameof(CakeInOrders));
+        }
+        public void IncreseAmountInOrder(object parameter)
+        {
+            var id = int.Parse(parameter.ToString());
+            CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes);
+            OnPropertyChanged(nameof(CakeInOrders));
+        }
+        public void DecreseAmountInOrder(object parameter)
+        {
+            var id = int.Parse(parameter.ToString());
+            CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes);
+            OnPropertyChanged(nameof(CakeInOrders));
         }
     }
 }
