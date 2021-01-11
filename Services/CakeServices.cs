@@ -43,23 +43,47 @@ namespace CakeShop_WPfApp.Services
 
         public bool addCake(CakeModel cakeModel) // without cake ID
         {
-            string insertSQLstring = $"INSERT INTO CAKE(NAME,IMPORTPRICE,SELLINGPRICE,AMOUNT,CATEGORYID,UNIT,INFORMATION) " +
+            if(cakeModel.Category.ID >= 0)
+            {
+                string insertSQLstring = $"INSERT INTO CAKE(NAME,IMPORTPRICE,SELLINGPRICE,AMOUNT,CATEGORYID,UNIT,INFORMATION) " +
                  $"VALUES (@Name,@ImportPrice,@SellingPrice,@Amount,{cakeModel.Category.ID},@Unit,@Information)";
 
-            using (var cnn = new SQLiteConnection(_connectionString))
-            {
-                // insert 
-                try
+                using (var cnn = new SQLiteConnection(_connectionString))
                 {
-                    cnn.Execute(insertSQLstring, cakeModel);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return false;
+                    // insert 
+                    try
+                    {
+                        cnn.Execute(insertSQLstring, cakeModel);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return false;
+                    }
                 }
             }
+            else
+            {
+                // add new category
+                string newCategorryName = cakeModel.Category.Name;
+                var categoeyServices = new CategoryServices();
 
+                categoeyServices.AddCategory(new CategoryModel { Name = newCategorryName });
+                // load new category ID 
+                string sqlLoadId = "SELECT IFNULL(MAX(ID), 0) FROM CATEGORY";
+
+                int currentMaxCategoryId;
+
+                using (var cnn = new SQLiteConnection(_connectionString))
+                {
+                    currentMaxCategoryId = cnn.QueryFirst<int>(sqlLoadId, new DynamicParameters());
+                    // add cake normally
+                    string insertSQLstring = $"INSERT INTO CAKE(NAME,IMPORTPRICE,SELLINGPRICE,AMOUNT,CATEGORYID,UNIT,INFORMATION) " +
+                 $"VALUES (@Name,@ImportPrice,@SellingPrice,@Amount,{currentMaxCategoryId},@Unit,@Information)";
+                    cnn.Execute(insertSQLstring, cakeModel);
+                }
+                
+            }
             return true;
         }
 
