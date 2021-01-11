@@ -17,18 +17,16 @@ using CakeShop_WPfApp.Services;
 using CakeShop_WPfApp.Models;
 namespace CakeShop_WPfApp.Views
 {
-    /// <summary>
-    /// Interaction logic for SplashScreen.xaml
-    /// </summary>
+
     public partial class SplashScreen : Window
     {
-        public Timer timer;
+        Timer timer;
         double count = 0;
         double time = 5;
         Random rng = new Random();
-        
-        public List<CakeModel> cakeList { get; set; }
-        public CakeServices CakeServices = new CakeServices();
+        private List<CakeModel> CakeList;
+        private CakeServices CakeServices = new CakeServices();
+  
         public SplashScreen()
         {
             InitializeComponent();
@@ -43,17 +41,18 @@ namespace CakeShop_WPfApp.Views
             {
                 var screen = new MainWindow();
                 screen.Show();
-
                 this.Close();
             }
             else
             {
-                cakeList = CakeServices.GetAllCakes();
-                int len = cakeList.Count();
+                CakeList = CakeServices.GetAllCakes();
+                int len = CakeList.Count();
             Rerandom: int index = rng.Next(0, len - 1);
-                info.Text = cakeList[index].Information;
+                info.Text = CakeList[index].Information;
+                CakeImage.Source = new BitmapImage(CakeList[index].ImageLink) ;
                 if (info.Text == "")
                     goto Rerandom;
+            
                 timer = new Timer();
                 timer.Elapsed += Timer_Elapsed;
                 timer.Interval = 10;
@@ -97,6 +96,14 @@ namespace CakeShop_WPfApp.Views
             var screen = new MainWindow();
             screen.Show();
             this.Close();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
     }
 }
