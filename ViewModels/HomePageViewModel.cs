@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,27 +17,42 @@ namespace CakeShop_WPfApp.ViewModels
     {
         private MainViewModel mainViewModel;
 
-        private int _cakePerPage; 
+        private int _cakePerPage;
         public CakeServices CakeServices = new CakeServices();
         public List<CakeModel> CakeList { get; set; }
         public CategoryServices CategoryServices = new CategoryServices();
         public List<CategoryModel> CategoryList { get; set; }
         public ICommand NextPage { get; set; }
         public ICommand PreviousPage { get; set; }
-        public CategoryModel SelectedCategory { get; set; }
+
+        private CategoryModel _selectedCategory; 
+        public CategoryModel SelectedCategory {
+            get
+            {
+                return _selectedCategory; 
+            }
+            set
+            {
+                _selectedCategory = value;
+                CalculatePaging();
+                Debug.Write(_selectedCategory.ID);
+            }
+        }
         public ICommand UpdateView { get; set; }
         public ICommand GotoDetailPage { get; set; }
 
         public Paging PagingVar { get; set; }
-        public int tripPerPage { get; set; }
+    
 
-        private int _currentFilter;
+     
 
         public void CalculatePaging()
         {
-            int cakeCount = CakeServices.GetCount();
+            int cakeCount = CakeServices.GetCount(SelectedCategory.ID);
             int newTotalPage = cakeCount / _cakePerPage +
                     (((cakeCount % _cakePerPage) == 0) ? 0 : 1);
+            if (newTotalPage == 0)
+                newTotalPage = 1;
             PagingVar = new Paging
             {
                 CurrentPage = 1,
@@ -46,21 +62,27 @@ namespace CakeShop_WPfApp.ViewModels
 
             };
             OnPropertyChanged("PagingVar");
-            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, -1);
+            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID);
+            OnPropertyChanged("CakeList");
 
         }
         public HomePageViewModel(MainViewModel param)
         {
-            
+            //test = "Tất cả";
+            //CurrentFilter = 0;
             _cakePerPage = 2;
             mainViewModel = param;
             UpdateView = new UpdateMainViewCommand(mainViewModel);
-            CalculatePaging();
-            GotoDetailPage = new RelayCommand(o => ShowCakeDetailPage(o));
-            CategoryList = CategoryServices.LoadAll();
             SelectedCategory = new CategoryModel();
             SelectedCategory.Name = "Tất cả";
-            CategoryList.Add(SelectedCategory);
+            SelectedCategory.ID = 0;
+            CategoryList = CategoryServices.LoadAll();
+            CategoryList.Insert(0, SelectedCategory);
+            GotoDetailPage = new RelayCommand(o => ShowCakeDetailPage(o));
+            
+            CalculatePaging();
+            
+            
             NextPage = new NextPageHomeCommand(this);
             PreviousPage = new PreviousPageHomeCommand(this);
 
@@ -70,12 +92,12 @@ namespace CakeShop_WPfApp.ViewModels
             var CakeDetailPage = new CakeDetailPage(int.Parse(parameter.ToString()));
             CakeDetailPage.Show();
         }
-
+        
         public void GoToNextPage()
         {
             PagingVar.CurrentPage++;
             OnPropertyChanged("PagingVar");
-            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, -1);
+            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID);
             OnPropertyChanged("CakeList");
 
         }
@@ -84,7 +106,7 @@ namespace CakeShop_WPfApp.ViewModels
         {
             PagingVar.CurrentPage--;
             OnPropertyChanged("PagingVar");
-            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, -1);
+            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID);
             OnPropertyChanged("CakeList");
 
         }

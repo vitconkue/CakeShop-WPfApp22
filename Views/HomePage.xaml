@@ -28,7 +28,7 @@
                 <ComboBox ItemsSource="{Binding CategoryList}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Name"
-                  SelectedValue="Tất cả" Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">
+                   SelectedItem= "{Binding SelectedCategory}" Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">
                    
                 </ComboBox>
                 <Button Command="{Binding UpdateView}" CommandParameter="AddCakePage"  Margin="10 0">

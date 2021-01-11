@@ -27,7 +27,11 @@ namespace CakeShop_WPfApp.Services
 
         List<CakeModel> GetCakeWithPageInfo(int pageNumber, int cakePerpage, int categoryID = -1);
 
-        int GetCount(int categoryID = -1);
+        int GetCount(int categoryID);
+
+        List<CakeModel> GetCakeWithCategoryId(int categoryID); 
+
+        
     }
     public class CakeServices: ICakeService
     {
@@ -180,26 +184,56 @@ namespace CakeShop_WPfApp.Services
             return result;
         }
 
-        public List<CakeModel> GetCakeWithPageInfo(int pageNumber, int cakePerpage, int categoryID = -1)
+        public List<CakeModel> GetCakeWithPageInfo(int pageNumber, int cakePerpage, int categoryID)
         {
             List<CakeModel> result = new List<CakeModel>();
-            List<CakeModel> allCakes = new List<CakeModel>();
-
-            allCakes = GetAllCakes();
+            List<CakeModel> allCakes = GetCakeWithCategoryId(categoryID);
 
             result = allCakes.Skip((pageNumber - 1) * cakePerpage).Take(cakePerpage).ToList();
 
             return result; 
         }
 
-        public int GetCount(int categoryID = -1)
+        public int GetCount(int categoryID)
         {
-            string sqlString = "SELECT COUNT(*) FROM CAKE";
+            string sqlString; 
+            if (categoryID == 0)
+            {
+                 sqlString = $"SELECT COUNT(*) FROM CAKE ";
+            }
+            else
+
+            {
+                sqlString = $"SELECT COUNT(*) FROM CAKE WHERE CATEGORYID = {categoryID}";
+            }
+            
             int result = 0; 
             using (var cnn = new SQLiteConnection(_connectionString))
             {
                 result = cnn.QueryFirst<int>(sqlString, new DynamicParameters());
             }
+            return result;
+        }
+
+        public List<CakeModel> GetCakeWithCategoryId(int categoryID)
+        {
+            List<CakeModel> result = new List<CakeModel>();
+            string sqlString;
+            if(categoryID != 0)
+            {
+                 sqlString = $"SELECT * FROM CAKE WHERE CATEGORYID = {categoryID}";
+            }
+            else
+            {
+                sqlString = $"SELECT * FROM CAKE";
+            }
+            
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                //query 
+                result = cnn.Query<CakeModel>(sqlString, new DynamicParameters()).ToList();
+            }
+
             return result;
         }
     }
