@@ -18,6 +18,7 @@ namespace CakeShop_WPfApp.ViewModels
         public List<CakeModel> CakeList { get; set; }
         public CategoryServices CategoryServices = new CategoryServices();
         public List<CategoryModel> CategoryList { get; set; }
+        public CategoryModel SelectedCategory { get; set; }
         public ICommand UpdateView { get; set; }
         public ICommand GotoDetailPage { get; set; }
         public HomePageViewModel(MainViewModel param)
@@ -26,7 +27,10 @@ namespace CakeShop_WPfApp.ViewModels
             UpdateView = new UpdateMainViewCommand(mainViewModel);
             CakeList = CakeServices.GetAllCakes();
             GotoDetailPage = new RelayCommand(o => ShowCakeDetailPage(o));
-
+            CategoryList = CategoryServices.LoadAll();
+            SelectedCategory = new CategoryModel();
+            SelectedCategory.Name = "Tất cả";
+            CategoryList.Add(SelectedCategory);
         }
         public void ShowCakeDetailPage(object parameter)
         {

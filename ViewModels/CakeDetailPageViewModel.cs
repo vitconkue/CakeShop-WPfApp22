@@ -15,8 +15,9 @@ namespace CakeShop_WPfApp.ViewModels
         public string Title { get; set; }
         public CakeDetailPageViewModel(int cakeID)
         {
-            //Cake = CakeServices.GetCakeWithID(cakeID);
-            Title = $"Bánh {cakeID}";
+            Cake = CakeServices.loadSingleCake(cakeID);
+            Title = Cake.Name;
+
         }
     }
 }
