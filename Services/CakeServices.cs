@@ -116,6 +116,17 @@ namespace CakeShop_WPfApp.Services
                     return false;
             }
         }
+        public bool checkOutOfCake(int cakeId)
+        {
+            int currentAmount = 0;
+
+            string sqlstring = $"SELECT AMOUNT FROM CAKE WHERE ID = {cakeId}";
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                currentAmount = cnn.QueryFirst<int>(sqlstring, new DynamicParameters()); 
+            }
+            return currentAmount <= 0; 
+        }
 
         public bool updateCakeInformationInDatabase(CakeModel changedTo)
         {
