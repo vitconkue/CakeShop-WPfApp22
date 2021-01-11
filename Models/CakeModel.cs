@@ -18,7 +18,7 @@ namespace CakeShop_WPfApp.Models
 
         public CategoryModel Category { get; set; }
 
-        public int CategoryID { get; set; }
+      
         public string Unit { get; set; }
         public string Information { get; set; }
 
