@@ -25,10 +25,7 @@
                             <StackPanel  Orientation="Vertical" Margin="20">
 								<TextBlock HorizontalAlignment="Center" FontSize="17" FontWeight="ExtraBlack" Foreground="{DynamicResource PrimaryHueDarkBrush}" >THÊM SẢN PHẨM MỚI</TextBlock>
                                 <TextBox  Text="{Binding Name}"  materialDesign:HintAssist.Hint="Tên sản phẩm" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="400" Margin="20"></TextBox>
-								<ComboBox VerticalAlignment="Center" Width="400" Margin="20" materialDesign:HintAssist.Hint="Loại bánh" materialDesign:HintAssist.HintOpacity=".26" IsEditable="True">
-									<ComboBoxItem Content="Loại 1" />
-									<ComboBoxItem Content="Loại 2" />
-									<ComboBoxItem Content="Loại 3" />
+								<ComboBox Text="{Binding MemberNameData}"  ItemsSource="{Binding AllCategory}" DisplayMemberPath="Name" SelectedIndex="{Binding CategoryID}" VerticalAlignment="Center" Width="400" Margin="20" materialDesign:HintAssist.Hint="Loại bánh" materialDesign:HintAssist.HintOpacity=".26" IsEditable="True">
 								</ComboBox>
 								<TextBox  Text="{Binding ImportPrice}"  materialDesign:HintAssist.Hint="Giá nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"  Width="400" Margin="20"></TextBox>
                                 <TextBox  Text="{Binding SellingPrice}"  materialDesign:HintAssist.Hint="Giá bán" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="400" Margin="20"></TextBox>
@@ -51,7 +48,7 @@
 						<TextBlock Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="17" FontWeight="ExtraBlack" HorizontalAlignment="Center" >NHẬP KHO</TextBlock>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBox Text="{Binding Amount}"  materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Width="200" Margin="20"></TextBox>
-                            <ComboBox Text="{Binding Unit}"  Width="200" Margin="20,30,20,20" materialDesign:HintAssist.Hint="Cái" materialDesign:HintAssist.HintOpacity=".26">
+                            <ComboBox Text="{Binding Unit}"  Width="200" Margin="20,30,20,20"  materialDesign:HintAssist.HintOpacity=".26">
                                 <ComboBoxItem
 										Content="Cái" />
                                 <ComboBoxItem

@@ -147,6 +147,7 @@ namespace CakeShop_WPfApp.ViewModels
             Amount = myCake.Amount;
             Information = myCake.Information;
             Unit = myCake.Unit;
+            ImageSource = "/Database/Images/CakeImages/1.png";
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(ImportPrice));
             OnPropertyChanged(nameof(SellingPrice));

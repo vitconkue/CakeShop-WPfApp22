@@ -7,6 +7,7 @@ using CakeShop_WPfApp.Models;
 using CakeShop_WPfApp.Database;
 using Dapper;
 using System.Data.SQLite;
+using System.Windows;
 
 namespace CakeShop_WPfApp.Services
 {
