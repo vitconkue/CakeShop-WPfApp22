@@ -19,5 +19,9 @@ namespace CakeShop_WPfApp.Models
         {
             return Amount * SellPrice;
         }
+        public int TotalMoney()
+        {
+            return CalculateSum();
+        }
     }
 }
