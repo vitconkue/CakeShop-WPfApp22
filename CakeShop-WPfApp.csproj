@@ -105,9 +105,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\NextPageHomeCommand.cs" />
+    <Compile Include="Commands\PreviousPageHomeCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\UpdateMainViewCommand.cs" />
     <Compile Include="Helper\HelperFunctions.cs" />
+    <Compile Include="Helper\PageInfo.cs" />
+    <Compile Include="Helper\Paging.cs" />
     <Compile Include="Models\CakeInOrder.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\OrderModel.cs" />

@@ -24,6 +24,10 @@ namespace CakeShop_WPfApp.Services
         bool updateCakeInformationInDatabase(CakeModel changedTo); // pass in the cake model with changed information
 
         List<CakeModel> SearchCake(string keyword, int cagetory = -1);
+
+        List<CakeModel> GetCakeWithPageInfo(int pageNumber, int cakePerpage, int categoryID = -1);
+
+        int GetCount(int categoryID = -1);
     }
     public class CakeServices: ICakeService
     {
@@ -172,6 +176,29 @@ namespace CakeShop_WPfApp.Services
             foreach(var x in filteredCakeName)
             {
                 result.Add(loadSingleCake(x.Item1));
+            }
+            return result;
+        }
+
+        public List<CakeModel> GetCakeWithPageInfo(int pageNumber, int cakePerpage, int categoryID = -1)
+        {
+            List<CakeModel> result = new List<CakeModel>();
+            List<CakeModel> allCakes = new List<CakeModel>();
+
+            allCakes = GetAllCakes();
+
+            result = allCakes.Skip((pageNumber - 1) * cakePerpage).Take(cakePerpage).ToList();
+
+            return result; 
+        }
+
+        public int GetCount(int categoryID = -1)
+        {
+            string sqlString = "SELECT COUNT(*) FROM CAKE";
+            int result = 0; 
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                result = cnn.QueryFirst<int>(sqlString, new DynamicParameters());
             }
             return result;
         }

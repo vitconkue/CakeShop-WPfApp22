@@ -97,17 +97,22 @@
         </Grid>
         <Grid Grid.Row="2">
             <StackPanel Height="40" HorizontalAlignment="Center" Width="250" Orientation="Horizontal">
-                <Button Width="50">
+                <Button Command="{Binding PreviousPage}" CommandParameter="{Binding PagingVar}" Width="50">
                     <StackPanel>
                         <materialDesign:PackIcon Kind="NavigateBefore"></materialDesign:PackIcon>
                     </StackPanel>
                 </Button>
                 <Button  Width="100" Margin="20 0">
-                    <StackPanel>
-                        <TextBlock>1 OF 3</TextBlock>
-                    </StackPanel>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding PagingVar.CurrentPage}"></TextBlock>
+                            <TextBlock Text=" OF "></TextBlock>
+                            <TextBlock Text="{Binding PagingVar.TotalPages}"></TextBlock>
+                        </StackPanel>
+
+                    </Button.Content>
                 </Button>
-                <Button Width="50" >
+                <Button Command="{Binding NextPage}" CommandParameter="{Binding PagingVar}" Width="50" >
                     <StackPanel>
                         <materialDesign:PackIcon  Kind="NavigateNext"></materialDesign:PackIcon>
                     </StackPanel>
