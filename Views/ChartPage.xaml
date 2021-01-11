@@ -34,7 +34,7 @@
             
                 <Grid Grid.Row="1">
                     <StackPanel>
-                        <ComboBox ItemsSource="{Binding CategoryList}"
+                        <ComboBox SelectedItem="{Binding CurrentYear}" ItemsSource="{Binding YearList}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Name"
                   SelectedValue="Tất cả" Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">

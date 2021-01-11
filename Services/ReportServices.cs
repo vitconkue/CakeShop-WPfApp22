@@ -13,7 +13,7 @@ namespace CakeShop_WPfApp.Services
         List<int> GetMonthlyRevenue(int year);
         List<int> GetMonthlyProfit(int year);
     }
-    class ReportServices : IReportServices
+    public class ReportServices : IReportServices
     {
         private OrderServices orderServices = new OrderServices();
         public List<int> GetMonthlyRevenue(int year)
