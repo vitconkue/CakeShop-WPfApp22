@@ -74,7 +74,7 @@
                                                     <materialDesign:PackIcon Kind="Add"></materialDesign:PackIcon>
                                                     
                                                 </Button>
-                                                <Button>
+                                                    <Button  Command="{Binding DataContext.DecreaseAmount,ElementName=OrderData}" CommandParameter="{Binding cake.ID}">
 
                                                     <materialDesign:PackIcon Kind="Minus"></materialDesign:PackIcon>
                                                 </Button>

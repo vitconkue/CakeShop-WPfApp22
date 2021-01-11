@@ -117,7 +117,7 @@ namespace CakeShop_WPfApp.Models
             return true;
         }
 
-        private void DeleteFromOrder(int cakeID)
+        public void DeleteFromOrder(int cakeID)
         {
             int index = -1; 
             for(int i =0; i < listCakes.Count; ++i)

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CakeShop_WPfApp.ViewModels
@@ -63,18 +64,28 @@ namespace CakeShop_WPfApp.ViewModels
         public void DeleteCake(object parameter)
         {
             var id = int.Parse(parameter.ToString());
+            Order.DeleteFromOrder(id);
             CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes);
             OnPropertyChanged(nameof(CakeInOrders));
         }
         public void IncreseAmountInOrder(object parameter)
         {
             var id = int.Parse(parameter.ToString());
-            CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes);
-            OnPropertyChanged(nameof(CakeInOrders));
+            bool result=Order.IncreaseCakeAmount(id);
+            if (result)
+            {
+                CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes);
+                OnPropertyChanged(nameof(CakeInOrders));
+            }
+            else
+            {
+                MessageBox.Show("Không đủ bánh trong kho!!");
+            }
         }
         public void DecreseAmountInOrder(object parameter)
         {
             var id = int.Parse(parameter.ToString());
+            Order.DecreaseCakeAmount(id);
             CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes);
             OnPropertyChanged(nameof(CakeInOrders));
         }
