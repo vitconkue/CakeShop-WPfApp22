@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using System.Globalization;
 
 namespace CakeShop_WPfApp.Services
 {
@@ -16,6 +17,8 @@ namespace CakeShop_WPfApp.Services
         bool AddOrder(OrderModel orderModel);
 
         List<OrderModel> LoadAllOrder();
+
+        List<OrderModel> LoadAllOrderInYear(int year);
     }
     public class OrderServices : IOrderServices
     {
@@ -66,6 +69,28 @@ namespace CakeShop_WPfApp.Services
             {
                 result.Add(LoadSingleOrder(orderId));
             }
+
+            return result;
+        }
+
+        public List<OrderModel> LoadAllOrderInYear(int year)
+        {
+            CakeServices cakeServices = new CakeServices();
+
+            List<OrderModel> result = new List<OrderModel>();
+            List<int> listOrderID = new List<int>();
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                // load all orderid 
+
+                listOrderID = cnn.Query<int>("SELECT ID FROM BILL").ToList();
+            }
+            foreach (var orderId in listOrderID)
+            {
+                result.Add(LoadSingleOrder(orderId));
+            }
+            // FILTER RESULT WITH YEAR
+            result = result.Where(r => DateTime.ParseExact(r.Date, "dd-mm-yyyy", CultureInfo.InvariantCulture).Year == year).ToList();
 
             return result;
         }
