@@ -14,6 +14,7 @@ namespace CakeShop_WPfApp.Services
         List<int> GetMonthlyProfit(int year);
 
         List<(string, int)> GetCategoryRevenue();
+
     }
     public class ReportServices : IReportServices
     {
@@ -62,5 +63,7 @@ namespace CakeShop_WPfApp.Services
 
             return result;
         }
+
+       
     }
 }

@@ -25,6 +25,8 @@ namespace CakeShop_WPfApp.ViewModels
         public ICommand NextPage { get; set; }
         public ICommand PreviousPage { get; set; }
 
+        public ICommand SearchCommand { get; set; }
+
         private CategoryModel _selectedCategory; 
         public CategoryModel SelectedCategory {
             get
@@ -64,7 +66,6 @@ namespace CakeShop_WPfApp.ViewModels
             OnPropertyChanged("PagingVar");
             CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID);
             OnPropertyChanged("CakeList");
-
         }
         public HomePageViewModel(MainViewModel param)
         {
@@ -81,8 +82,8 @@ namespace CakeShop_WPfApp.ViewModels
             GotoDetailPage = new RelayCommand(o => ShowCakeDetailPage(o));
             
             CalculatePaging();
-            
-            
+
+            SearchCommand = new SearchCommand(this); 
             NextPage = new NextPageHomeCommand(this);
             PreviousPage = new PreviousPageHomeCommand(this);
 

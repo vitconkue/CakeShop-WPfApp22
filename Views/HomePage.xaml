@@ -29,7 +29,7 @@
                     <ComboBox ItemsSource="{Binding CategoryList}"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Name"
-                  SelectedValue="Tất cả" Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">
+                  SelectedItem="{Binding SelectedCategory}" Margin="20 0 0 0" Width="150" Style="{DynamicResource MaterialDesignComboBox}">
 
                     </ComboBox>
                     <Button Command="{Binding UpdateView}" CommandParameter="AddCakePage"  Margin="10 0">
@@ -48,7 +48,17 @@
                 <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right" Margin="350 0 0 0">
 
                     <materialDesign:PackIcon Margin="0 5 10 0" Kind="Search" Height="30" Width="28"></materialDesign:PackIcon>
-                    <TextBox Height="30"  FontSize="14" Width="200"/>
+                    <TextBox Name ="SearchInput" Height="30"  FontSize="14" Width="200">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding SearchCommand}" Key="Return">
+                                <KeyBinding.CommandParameter>
+                                    <Binding Path="Text" ElementName="SearchInput">
+                                        
+                                    </Binding>
+                                </KeyBinding.CommandParameter>
+                            </KeyBinding>
+                        </TextBox.InputBindings>
+                    </TextBox>
 
                 </StackPanel>
             </StackPanel>
