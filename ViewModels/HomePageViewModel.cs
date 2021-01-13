@@ -76,7 +76,7 @@ namespace CakeShop_WPfApp.ViewModels
             //test = "Tất cả";
             //CurrentFilter = 0;
             CurrentSearchText = "";
-            _cakePerPage = 2;
+            _cakePerPage = 8;
             mainViewModel = param;
             UpdateView = new UpdateMainViewCommand(mainViewModel);
             CakeList = CakeServices.GetAllCakes();

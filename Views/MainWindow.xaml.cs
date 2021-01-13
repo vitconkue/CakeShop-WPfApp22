@@ -58,5 +58,10 @@ namespace CakeShop_WPfApp
             ChartIcon.Foreground = Brushes.White;
             ChartTitle.Foreground = Brushes.White;
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

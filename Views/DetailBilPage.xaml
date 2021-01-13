@@ -103,7 +103,7 @@
                 <StackPanel Margin="20">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{DynamicResource InfoText}">Mã hóa đơn:</TextBlock>
-                        <TextBlock Text="{Binding Order.ID}"></TextBlock>
+                            <TextBlock Text="{Binding Order.ID,StringFormat={}HD{0}}"></TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{DynamicResource InfoText}">Ngày lập:</TextBlock>

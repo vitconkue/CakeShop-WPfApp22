@@ -13,7 +13,7 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="SplashScreen" Height="700" Width="900" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="SplashScreen" Height="700" Width="900" Loaded="Window_Loaded" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid>
         <Canvas Background="#4a4853">
 
