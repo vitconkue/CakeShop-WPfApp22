@@ -25,13 +25,13 @@ namespace CakeShop_WPfApp.Services
 
         List<CakeModel> SearchCake(string keyword, int cagetory = -1);
 
-        List<CakeModel> GetCakeWithPageInfo(int pageNumber, int cakePerpage, int categoryID = -1);
+        List<CakeModel> GetCakeWithPageInfo(int pageNumber, int cakePerpage, int categoryID = -1, string searchText="");
 
-        int GetCount(int categoryID);
+        int GetCount(int categoryID, string searchText);
 
-        List<CakeModel> GetCakeWithCategoryId(int categoryID); 
+        List<CakeModel> GetCakeWithCategoryId(int categoryID);
+        List<CakeModel> AddSearchFilter(List<CakeModel> currentCakeList, string SearchText); 
 
-        
     }
     public class CakeServices: ICakeService
     {
@@ -184,35 +184,28 @@ namespace CakeShop_WPfApp.Services
             return result;
         }
 
-        public List<CakeModel> GetCakeWithPageInfo(int pageNumber, int cakePerpage, int categoryID)
+        public List<CakeModel> GetCakeWithPageInfo(int pageNumber, int cakePerpage, int categoryID, string searchText)
         {
             List<CakeModel> result = new List<CakeModel>();
             List<CakeModel> allCakes = GetCakeWithCategoryId(categoryID);
+
+            allCakes = AddSearchFilter(allCakes, searchText);
 
             result = allCakes.Skip((pageNumber - 1) * cakePerpage).Take(cakePerpage).ToList();
 
             return result; 
         }
 
-        public int GetCount(int categoryID)
+        public int GetCount(int categoryID, string searchText)
         {
-            string sqlString; 
-            if (categoryID == 0)
-            {
-                 sqlString = $"SELECT COUNT(*) FROM CAKE ";
-            }
-            else
-
-            {
-                sqlString = $"SELECT COUNT(*) FROM CAKE WHERE CATEGORYID = {categoryID}";
-            }
             
-            int result = 0; 
-            using (var cnn = new SQLiteConnection(_connectionString))
-            {
-                result = cnn.QueryFirst<int>(sqlString, new DynamicParameters());
-            }
-            return result;
+
+            List<CakeModel> allCakes = GetCakeWithCategoryId(categoryID);
+
+            allCakes = AddSearchFilter(allCakes, searchText);
+
+            return allCakes.Count; 
+
         }
 
         public List<CakeModel> GetCakeWithCategoryId(int categoryID)
@@ -233,6 +226,18 @@ namespace CakeShop_WPfApp.Services
                 //query 
                 result = cnn.Query<CakeModel>(sqlString, new DynamicParameters()).ToList();
             }
+
+            return result;
+        }
+
+        public List<CakeModel> AddSearchFilter(List<CakeModel> currentCakeList, string searchText)
+        {
+            List<CakeModel> result = currentCakeList;
+            if (searchText == "")
+                return result;
+
+            result = result.Where(r => r.Name.ToLower().Contains(searchText.ToLower())
+            || HelperFunctions.RemovedUTF(r.Name.ToLower()).Contains(HelperFunctions.RemovedUTF(searchText.ToLower()))).ToList();
 
             return result;
         }

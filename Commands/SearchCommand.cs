@@ -31,14 +31,13 @@ namespace CakeShop_WPfApp.Commands
                 return true;
             }
             string searchText = parameter as string;
-            if (searchText == "")
-                return false;
             return true;
         }
 
         public void Execute(object parameter)
         {
             string searchText = parameter as string;
+            _viewModel.ApplySearch(searchText);
             Debug.WriteLine(searchText); 
         }
     }

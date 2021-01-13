@@ -27,6 +27,8 @@ namespace CakeShop_WPfApp.ViewModels
 
         public ICommand SearchCommand { get; set; }
 
+        public string CurrentSearchText { get; set; }
+
         private CategoryModel _selectedCategory; 
         public CategoryModel SelectedCategory {
             get
@@ -50,7 +52,7 @@ namespace CakeShop_WPfApp.ViewModels
 
         public void CalculatePaging()
         {
-            int cakeCount = CakeServices.GetCount(SelectedCategory.ID);
+            int cakeCount = CakeServices.GetCount(SelectedCategory.ID, CurrentSearchText);
             int newTotalPage = cakeCount / _cakePerPage +
                     (((cakeCount % _cakePerPage) == 0) ? 0 : 1);
             if (newTotalPage == 0)
@@ -64,13 +66,14 @@ namespace CakeShop_WPfApp.ViewModels
 
             };
             OnPropertyChanged("PagingVar");
-            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID);
+            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID,CurrentSearchText);
             OnPropertyChanged("CakeList");
         }
         public HomePageViewModel(MainViewModel param)
         {
             //test = "Tất cả";
             //CurrentFilter = 0;
+            CurrentSearchText = "";
             _cakePerPage = 2;
             mainViewModel = param;
             UpdateView = new UpdateMainViewCommand(mainViewModel);
@@ -98,7 +101,7 @@ namespace CakeShop_WPfApp.ViewModels
         {
             PagingVar.CurrentPage++;
             OnPropertyChanged("PagingVar");
-            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID);
+            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID, CurrentSearchText);
             OnPropertyChanged("CakeList");
 
         }
@@ -107,9 +110,15 @@ namespace CakeShop_WPfApp.ViewModels
         {
             PagingVar.CurrentPage--;
             OnPropertyChanged("PagingVar");
-            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID);
+            CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID, CurrentSearchText);
             OnPropertyChanged("CakeList");
 
+        }
+
+        public void ApplySearch(string searchText)
+        {
+            CurrentSearchText = searchText;
+            CalculatePaging();
         }
     }
 }
