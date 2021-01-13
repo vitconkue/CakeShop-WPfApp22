@@ -139,13 +139,18 @@
                             <TextBlock Foreground="{DynamicResource PrimaryHueDarkBrush}">Thêm bánh vào hóa đơn</TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-                            <Button Margin="0 0 10 0">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Search"></materialDesign:PackIcon>
-                                    <TextBlock>Tìm bánh</TextBlock>
-                                </StackPanel>
-                            </Button>
-                            <TextBox  FontSize="14" Width="200"/>
+                            <materialDesign:PackIcon Margin="0 0 10 0" Foreground="Black" Width="30" Kind="Search" Height="64"/>
+                            <TextBox Name="SearchInput"  FontSize="14" Width="200">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="{Binding SearchCommand}" Key="Return">
+                                        <KeyBinding.CommandParameter>
+                                            <Binding Path="Text" ElementName="SearchInput">
+
+                                            </Binding>
+                                        </KeyBinding.CommandParameter>
+                                    </KeyBinding>
+                                </TextBox.InputBindings>
+                            </TextBox>
 
                         </StackPanel>
                     </Grid>

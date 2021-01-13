@@ -109,6 +109,7 @@
     <Compile Include="Commands\PreviousPageHomeCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\SearchCommand.cs" />
+    <Compile Include="Commands\SearchInBillPageCommand.cs" />
     <Compile Include="Commands\UpdateMainViewCommand.cs" />
     <Compile Include="Helper\HelperFunctions.cs" />
     <Compile Include="Helper\PageInfo.cs" />

@@ -17,12 +17,16 @@ namespace CakeShop_WPfApp.ViewModels
         public CakeServices CakeServices = new CakeServices();
         public List<CakeModel> CakeList { get; set; }
         private OrderModel _order;
+
+
         public ICommand AddToBill { get; set; }
         public ICommand DeleteCakeInOrder {get; set; }
         public ICommand IncreaseAmount { get; set; }
         public ICommand DecreaseAmount { get; set; }
         public ICommand AddOrderToDB { get; set; }
         public ICommand RefreshPage { get; set; }
+
+        public ICommand SearchCommand { get; set; }
         public OrderServices OrderServices = new OrderServices();
         
         private int totalPrice;
@@ -64,6 +68,7 @@ namespace CakeShop_WPfApp.ViewModels
             Order = new OrderModel();
             CakeInOrders = new ObservableCollection<CakeInOrder>();
             CakeInOrders = new ObservableCollection<CakeInOrder>(Order.listCakes);
+            SearchCommand = new SearchInBillPageCommand(this);
             AddToBill = new RelayCommand(o => AddCakeToBill(o));
             DeleteCakeInOrder = new RelayCommand(o => DeleteCake(o));
             IncreaseAmount = new RelayCommand(o => IncreseAmountInOrder(o));
@@ -135,6 +140,12 @@ namespace CakeShop_WPfApp.ViewModels
         public void RefreshPageInfo()
         {
             mainViewModel.SelectedViewModel = new AddBillPageViewModel(mainViewModel);
+        }
+
+        public void ApplySearch(string searchText)
+        {
+            CakeList = CakeServices.AddSearchFilter(CakeServices.GetAllCakes(), searchText);
+            OnPropertyChanged("CakeList");
         }
     }
 }
