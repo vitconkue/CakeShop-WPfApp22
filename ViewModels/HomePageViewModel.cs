@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using CakeShop_WPfApp.Commands;
 using CakeShop_WPfApp.Helper;
@@ -69,6 +70,7 @@ namespace CakeShop_WPfApp.ViewModels
             CakeList = CakeServices.GetCakeWithPageInfo(PagingVar.CurrentPage, PagingVar.CakePerPage, SelectedCategory.ID,CurrentSearchText);
             OnPropertyChanged("CakeList");
         }
+        public ICommand GotoUpdatePage { get; set; }
         public HomePageViewModel(MainViewModel param)
         {
             //test = "Tất cả";
@@ -77,6 +79,10 @@ namespace CakeShop_WPfApp.ViewModels
             _cakePerPage = 2;
             mainViewModel = param;
             UpdateView = new UpdateMainViewCommand(mainViewModel);
+            CakeList = CakeServices.GetAllCakes();
+            GotoDetailPage = new RelayCommand(o => ShowCakeDetailPage(o));
+            GotoUpdatePage = new RelayCommand(o => ShowUpdatePage(o));
+            CategoryList = CategoryServices.LoadAll();
             SelectedCategory = new CategoryModel();
             SelectedCategory.Name = "Tất cả";
             SelectedCategory.ID = 0;
@@ -119,6 +125,11 @@ namespace CakeShop_WPfApp.ViewModels
         {
             CurrentSearchText = searchText;
             CalculatePaging();
+        }
+
+        public void ShowUpdatePage(object parameter)
+        {
+            mainViewModel.SelectedViewModel = new UpdateCakePageViewModel(int.Parse(parameter.ToString()), mainViewModel);
         }
     }
 }

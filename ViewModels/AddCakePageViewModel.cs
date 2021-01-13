@@ -185,7 +185,7 @@ namespace CakeShop_WPfApp.ViewModels
         {
             mainViewModel = param;
             addImageButtonCommand = new RelayCommand(o => addImageButtonClick());
-            doneButtonCommand = new RelayCommand(o => doneButtonClick());
+            doneButtonCommand = new RelayCommand(o => doneButtonClick(param));
             AllCategory = new ObservableCollection<CategoryModel>();
             List<CategoryModel> tempList = new List<CategoryModel>();
             tempList = categoryServices.LoadAll();
@@ -195,6 +195,7 @@ namespace CakeShop_WPfApp.ViewModels
             }
             //Set mặc định cho Unit
             Unit = "Cái";
+            ImageSource = null;
         }
 
         private void addImageButtonClick()
@@ -206,10 +207,9 @@ namespace CakeShop_WPfApp.ViewModels
                 ImageSource = openFileDialog.FileName;
             }
             OnPropertyChanged(nameof(ImageSource));
-            MessageBox.Show("Add Image Successfully!!!");
         }
 
-        private void doneButtonClick()
+        private void doneButtonClick(MainViewModel param)
         {
             CakeModel newCake = new CakeModel();
             newCake.Name = Name;
@@ -218,9 +218,42 @@ namespace CakeShop_WPfApp.ViewModels
             newCake.Amount = Amount;
             newCake.Information = Information;
             newCake.Unit = Unit;
-            newCake.Category = AllCategory[CategoryID];
-            cakeServices.addCake(newCake);
+
+            if (CategoryID == -1)
+            {
+                CategoryModel tempCategory = new CategoryModel();
+                tempCategory.ID = -1;
+                tempCategory.Name = CategoryNameData;
+                newCake.Category = tempCategory;
+
+            }
+            else
+            {
+                newCake.Category = AllCategory[CategoryID];
+            }
+            int ID = 0;
+            ID = cakeServices.addCake(newCake);
+
+            if (ImageSource == null)
+            {
+                ImageSource = "";
+            }
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            directory += "Database\\Images\\CakeImages";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+            string fileName = ID.ToString() + ".png";
+            string sourcePath = ImageSource;
+            string targetPath = directory;
+            string sourceFile = System.IO.Path.Combine(sourcePath, "");
+            string destFile = System.IO.Path.Combine(targetPath, fileName);
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
+            System.IO.File.Copy(sourceFile, destFile, true);
             MessageBox.Show("Thêm sản phẩm mới thành công!!!");
+            mainViewModel.SelectedViewModel = new HomePageViewModel(param);
         }
     }
 }

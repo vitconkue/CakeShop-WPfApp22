@@ -17,7 +17,7 @@ namespace CakeShop_WPfApp.Services
         List<CakeModel> GetAllCakes();
 
         CakeModel loadSingleCake(int IdToLoad);
-        bool addCake(CakeModel cakeModel); // without ID, unit is one of 'Cái', 'Hộp', 'Lốc'
+        int addCake(CakeModel cakeModel); // without ID, unit is one of 'Cái', 'Hộp', 'Lốc'
 
         bool deleteCake(int IdToDelete);
 
@@ -52,7 +52,7 @@ namespace CakeShop_WPfApp.Services
 
        
 
-        public bool addCake(CakeModel cakeModel) // without cake ID
+        public int addCake(CakeModel cakeModel) // without cake ID
         {
             if(cakeModel.Category.ID >= 0)
             {
@@ -69,7 +69,7 @@ namespace CakeShop_WPfApp.Services
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
-                        return false;
+                        return 0;
                     }
                 }
             }
@@ -95,7 +95,14 @@ namespace CakeShop_WPfApp.Services
                 }
                 
             }
-            return true;
+            string SQLoadMaxIDCake = "SELECT ifnull(max(id),0) from cake";
+            int currentMaxCakeId = 0;
+
+            using (var cnn = new SQLiteConnection(_connectionString))
+            {
+                currentMaxCakeId = cnn.QueryFirst<int>(SQLoadMaxIDCake, new DynamicParameters()); 
+            }
+            return currentMaxCakeId; 
         }
 
         public CakeModel loadSingleCake(int IdToLoad)
