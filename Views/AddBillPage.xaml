@@ -17,13 +17,13 @@
              d:DesignHeight="700" d:DesignWidth="1350" >
     <UserControl.Resources>
         <converter:CommandParameterConverter x:Key="CPC"></converter:CommandParameterConverter>
-   
-            <Style TargetType="DataGridColumnHeader">
-                <Setter Property="FontWeight" Value="Bold"></Setter>
-                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
             <Setter Property="Height" Value="50"></Setter>
         </Style>
-       
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -47,9 +47,9 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0 0 10 0">Tạo hóa đơn</TextBlock>
                         <materialDesign:PackIcon Kind="AddShoppingCart"></materialDesign:PackIcon>
-                        
+
                     </StackPanel>
-                    
+
                 </Button>
                 <Button Command="{Binding RefreshPage}">
                     <StackPanel Orientation="Horizontal">
@@ -90,28 +90,28 @@
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Button  Command="{Binding DataContext.IncreaseAmount,ElementName=OrderData}" CommandParameter="{Binding cake.ID}" Margin="0 0 10 0">
-                                                    
-                                                    <materialDesign:PackIcon Kind="Add"></materialDesign:PackIcon>
-                                                    
-                                                </Button>
+
+                                                        <materialDesign:PackIcon Kind="Add"></materialDesign:PackIcon>
+
+                                                    </Button>
                                                     <Button  Command="{Binding DataContext.DecreaseAmount,ElementName=OrderData}" CommandParameter="{Binding cake.ID}">
 
-                                                    <materialDesign:PackIcon Kind="Minus"></materialDesign:PackIcon>
-                                                </Button>
+                                                        <materialDesign:PackIcon Kind="Minus"></materialDesign:PackIcon>
+                                                    </Button>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTemplateColumn Header="Xóa">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
                                                 <Button Command="{Binding DataContext.DeleteCakeInOrder,ElementName=OrderData}" CommandParameter="{Binding cake.ID}">Xóa</Button>
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                 
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
                                 </DataGrid.Columns>
-                                
+
                             </DataGrid>
                         </ScrollViewer>
                     </StackPanel>
@@ -128,31 +128,33 @@
                 </StackPanel>
 
             </materialDesign:Card>
-            <materialDesign:Card Grid.Column="1" Margin="10">
+            <materialDesign:Card Width="600" Grid.Column="1" Margin="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition Height="10*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <StackPanel Margin="10 10 0 0">
-                            <TextBlock Foreground="{DynamicResource PrimaryHueDarkBrush}">Thêm bánh vào hóa đơn</TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-                            <materialDesign:PackIcon Margin="0 0 10 0" Foreground="Black" Width="30" Kind="Search" Height="64"/>
-                            <TextBox Name="SearchInput"  FontSize="14" Width="200">
-                                <TextBox.InputBindings>
-                                    <KeyBinding Command="{Binding SearchCommand}" Key="Return">
-                                        <KeyBinding.CommandParameter>
-                                            <Binding Path="Text" ElementName="SearchInput">
+                       
+                            <StackPanel Margin="10 10 0 0">
+                                <TextBlock Foreground="{DynamicResource PrimaryHueDarkBrush}">Thêm bánh vào hóa đơn</TextBlock>
+                            </StackPanel>
+                            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                                <materialDesign:PackIcon Margin="0 0 10 0" Foreground="Black" Width="30" Kind="Search" Height="26"/>
+                                <TextBox Name="SearchInput"  Width="200" Height="26" VerticalAlignment="Top">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Command="{Binding SearchCommand}" Key="Return">
+                                            <KeyBinding.CommandParameter>
+                                                <Binding Path="Text" ElementName="SearchInput">
 
-                                            </Binding>
-                                        </KeyBinding.CommandParameter>
-                                    </KeyBinding>
-                                </TextBox.InputBindings>
-                            </TextBox>
+                                                </Binding>
+                                            </KeyBinding.CommandParameter>
+                                        </KeyBinding>
+                                    </TextBox.InputBindings>
+                                </TextBox>
 
-                        </StackPanel>
+                            </StackPanel>
+                      
                     </Grid>
                     <Grid Margin="10" HorizontalAlignment="Center"  Grid.Row="1">
                         <ListView  ItemsSource="{Binding CakeList}" x:Name="CakeListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -190,7 +192,7 @@
                                                             <TextBlock>Thêm</TextBlock>
                                                         </StackPanel>
                                                     </Button>
-                                                    
+
                                                 </StackPanel>
                                             </Grid>
                                         </materialDesign:Card>

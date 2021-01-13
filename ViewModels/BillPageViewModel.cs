@@ -17,10 +17,12 @@ namespace CakeShop_WPfApp.ViewModels
         public List <OrderModel> OrderList { get; set; }
         public OrderServices OrderServices = new OrderServices();
         public ICommand GotoDetail { get; set; }
+        public ICommand UpdateView { get; set; }
         public BillPageViewModel(MainViewModel param)
         {
             mainViewModel = param;
             OrderList = OrderServices.LoadAllOrder();
+            UpdateView = new UpdateMainViewCommand(mainViewModel);
             GotoDetail = new RelayCommand(o => GotoDetailPage(o));
         }
         public void GotoDetailPage(object parameter)
