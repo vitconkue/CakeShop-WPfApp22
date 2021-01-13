@@ -35,7 +35,7 @@ namespace CakeShop_WPfApp.Services
             {
                 foreach(var order in yearOrders)
                 {
-                    if(DateTime.ParseExact(order.Date, "dd-mm-yyyy", CultureInfo.InvariantCulture).Month == i)
+                    if(DateTime.ParseExact(order.Date, "dd-MM-yyyy", CultureInfo.InvariantCulture).Month == i)
                     {
                         result[i - 1] += order.CalculateSum();
                     }

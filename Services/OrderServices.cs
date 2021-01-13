@@ -114,7 +114,7 @@ namespace CakeShop_WPfApp.Services
                 result.Add(LoadSingleOrder(orderId));
             }
             // FILTER RESULT WITH YEAR
-            result = result.Where(r => DateTime.ParseExact(r.Date, "dd-mm-yyyy", CultureInfo.InvariantCulture).Year == year).ToList();
+            result = result.Where(r => DateTime.ParseExact(r.Date, "dd-MM-yyyy", CultureInfo.InvariantCulture).Year == year).ToList();
 
             return result;
         }
